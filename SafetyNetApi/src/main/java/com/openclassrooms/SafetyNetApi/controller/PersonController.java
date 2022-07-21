@@ -18,7 +18,7 @@ public class PersonController {
      * @Return - A List object of Person
      */
 
-    @GetMapping("/persons")
+    @GetMapping("/person")
     public List<Person> getPersons(){
         List<Person> listOfPerson = personService.getPersons();
         return listOfPerson;

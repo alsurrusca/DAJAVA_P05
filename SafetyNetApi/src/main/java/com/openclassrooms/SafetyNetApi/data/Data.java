@@ -4,6 +4,7 @@ import com.openclassrooms.SafetyNetApi.model.FireStation;
 import com.openclassrooms.SafetyNetApi.model.MedicalRecord;
 import com.openclassrooms.SafetyNetApi.model.Person;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 

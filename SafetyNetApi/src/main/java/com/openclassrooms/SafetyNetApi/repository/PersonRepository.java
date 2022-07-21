@@ -4,11 +4,13 @@ import com.openclassrooms.SafetyNetApi.model.Person;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+
 import java.util.List;
-import java.util.Optional;
+
+
 
 @Repository
-public interface PersonRepository {
+public interface PersonRepository extends CrudRepository<Person, String>{
 
 
     List<Person> findAll();
@@ -17,5 +19,5 @@ public interface PersonRepository {
 
     Person save(Person person);
 
-    Person update(String firstName, String lastName, String address, String city, String zip);
+    Person update(String address, String city, String zip,String phone, String email);
 }

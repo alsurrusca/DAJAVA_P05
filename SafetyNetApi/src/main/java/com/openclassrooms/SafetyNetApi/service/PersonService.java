@@ -1,11 +1,13 @@
 package com.openclassrooms.SafetyNetApi.service;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.openclassrooms.SafetyNetApi.model.Person;
 import com.openclassrooms.SafetyNetApi.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 
 @Service
 public class PersonService {
