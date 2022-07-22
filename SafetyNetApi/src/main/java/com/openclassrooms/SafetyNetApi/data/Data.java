@@ -3,11 +3,13 @@ package com.openclassrooms.SafetyNetApi.data;
 import com.openclassrooms.SafetyNetApi.model.FireStation;
 import com.openclassrooms.SafetyNetApi.model.MedicalRecord;
 import com.openclassrooms.SafetyNetApi.model.Person;
+import org.springframework.stereotype.Component;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class Data {
 
 
@@ -21,25 +23,33 @@ public class Data {
         return persons;
     }
 
-    public static void setPersons(List<Person> persons) {
-        Data.persons = persons;
+    public  void setPersons(List<Person> persons) {
+        this.persons = persons;
     }
 
     public static List<FireStation> getFireStations() {
         return fireStations;
     }
 
-    public static void setFireStations(List<FireStation> fireStations) {
-        Data.fireStations = fireStations;
+    public  void setFireStations(List<FireStation> fireStations) {
+        this.fireStations = fireStations;
     }
 
     public static List<MedicalRecord> getMedicalRecords() {
         return medicalRecords;
     }
 
-    public static void setMedicalRecords(List<MedicalRecord> medicalRecords) {
-        Data.medicalRecords = medicalRecords;
+    public  void setMedicalRecords(List<MedicalRecord> medicalRecords) {
+        this.medicalRecords = medicalRecords;
     }
 
 
+    @Override
+    public String toString() {
+        return "{" +
+                "persons=" + persons +
+                ", medicalRecords=" + medicalRecords +
+                ", fireStations=" + fireStations +
+                '}';
+    }
 }
