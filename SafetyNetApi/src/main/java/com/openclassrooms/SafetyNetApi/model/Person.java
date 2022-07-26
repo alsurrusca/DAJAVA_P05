@@ -4,14 +4,14 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 
 
-import javax.persistence.Entity;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 
-@Entity
+
 public class Person {
 
 
+    private Long id;
     private String firstName;
     private String lastName;
     private String address;

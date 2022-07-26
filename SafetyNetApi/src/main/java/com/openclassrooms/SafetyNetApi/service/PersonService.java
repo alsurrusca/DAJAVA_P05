@@ -13,14 +13,14 @@ import java.util.List;
 @Service
 public class PersonService {
 
-   @Autowired
+    @Autowired
     private PersonRepository personRepository;
 
     public List<Person> getPersons() {
         return personRepository.findAll();
     }
 
-    List<Person> getPerson(){
+    public List<Person> getPerson(){
         return personRepository.findAll();
     }
 
