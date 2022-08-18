@@ -20,7 +20,7 @@ public class PersonRepositoryImpl implements PersonRepository {
 
         Person personToAdd = null;
         if (personToAdd == null) {
-            Data.getPersons().add(personToAdd);
+            Data.getPersons();
         }
 
         return personToAdd;

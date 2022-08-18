@@ -129,7 +129,7 @@ public class UrlImpl implements UrlRepository {
 
         //List personne majeure et mineure
 
-        PersonListByStationDTO personListByStationDTOS = new ArrayList<>();
+        PersonListByStationDTO personListByStationDTOS = new PersonListByStationDTO();
         List<FireStation> fireStations = new ArrayList<>();
         FireStationImpl fireStationImpl = new FireStationImpl();
 
