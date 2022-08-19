@@ -43,10 +43,10 @@ public class FireStationImpl implements FireStationRepository {
 
 
     @Override
-    public FireStation updateFireStation(String adress, String station) {
+    public FireStation updateFireStation(String address, String station) {
         FireStation fireStationToUpdate = null;
         for (FireStation fireStation : Data.getFireStations()) {
-            if (fireStation.getAddress().equals(adress) && fireStation.getStation().equals(station)) {
+            if (fireStation.getAddress().equals(address) && fireStation.getStation().equals(station)) {
                 fireStation.getStation();
                 fireStation.getAddress();
             }

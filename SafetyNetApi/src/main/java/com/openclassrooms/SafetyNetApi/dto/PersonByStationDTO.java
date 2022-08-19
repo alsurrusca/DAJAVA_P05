@@ -1,6 +1,6 @@
 package com.openclassrooms.SafetyNetApi.dto;
 
-public class PersonByStationDTO  {
+public class PersonByStationDTO extends PersonListByStationDTO {
 
     private String firstName;
     private String lastName;
@@ -26,14 +26,6 @@ public class PersonByStationDTO  {
         this.lastName = lastName;
     }
 
-    public Iterable getAge() {
-        return age;
-    }
-
-    public void setAge(Iterable age) {
-        this.age = age;
-    }
-
     public String getAddress() {
         return address;
     }
@@ -50,15 +42,7 @@ public class PersonByStationDTO  {
         this.phone = phone;
     }
 
-    public String getMedication() {
-        return medication;
-    }
-
-    public void setMedication(String medication) {
-        this.medication = medication;
-    }
-
-    public String getAllergies() {
+       public String getAllergies() {
         return allergies;
     }
 

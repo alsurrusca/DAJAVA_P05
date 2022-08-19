@@ -1,28 +1,28 @@
 package com.openclassrooms.SafetyNetApi.dto;
 
+import com.openclassrooms.SafetyNetApi.model.Person;
+
 import java.util.List;
 
-public class PersonInfoDTO {
-
+public class ListPersonFireStationByAddressDTO extends Person {
     private String firstName;
     private String lastName;
-    private String address;
     private Integer age;
-    private String mail;
     private List<String> medications;
     private List<String> allergies;
 
-    public PersonInfoDTO(String firstName, String lastName, int age, String address, String email, List<String> medications, List<String> allergies) {
+    public ListPersonFireStationByAddressDTO(String firstName, String lastName, int age, List<String> medications, List<String> allergies) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;
-        this.address = address;
-        this.mail = email;
         this.medications = medications;
         this.allergies = allergies;
 
     }
 
+    public ListPersonFireStationByAddressDTO() {
+
+    }
 
     public String getFirstName() {
         return firstName;
@@ -40,13 +40,6 @@ public class PersonInfoDTO {
         this.lastName = lastName;
     }
 
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
 
     public Integer getAge() {
         return age;
@@ -54,14 +47,6 @@ public class PersonInfoDTO {
 
     public void setAge(Integer age) {
         this.age = age;
-    }
-
-    public String getMail() {
-        return mail;
-    }
-
-    public void setMail(String mail) {
-        this.mail = mail;
     }
 
     public List<String> getMedications() {
@@ -79,6 +64,4 @@ public class PersonInfoDTO {
     public void setAllergies(List<String> allergies) {
         this.allergies = allergies;
     }
-
-
 }

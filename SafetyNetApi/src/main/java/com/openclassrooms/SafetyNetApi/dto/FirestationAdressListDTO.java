@@ -10,6 +10,7 @@ public class FirestationAdressListDTO {
     private List<String> firestationList = new ArrayList<>();
     private List<FireStation> firestation;
 
+
     public List<String> getFirestationList() {
         return firestationList;
     }

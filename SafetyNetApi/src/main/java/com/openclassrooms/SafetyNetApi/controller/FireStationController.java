@@ -19,27 +19,27 @@ public class FireStationController {
      * @return list
      */
 
-    @GetMapping("/firestation")
+    @GetMapping("/firestations")
     public List<FireStation> getFireStation() {
         List<FireStation> listOfFireStation = fireStationService.getFireStation();
         return listOfFireStation;
     }
 
 
-    @PostMapping("/firestation")
+    @PostMapping("/firestations")
     public FireStation createFireStation (@RequestBody FireStation fireStation) {
         return fireStationService.addFireStation(fireStation);
     }
 
 
-    @PutMapping("/firestation")
+    @PutMapping("/firestations")
     public FireStation updateFireStation(@RequestParam String address, String station) {
         FireStation updateFireStation = fireStationService.updateFireStation(address, station);
         return updateFireStation;
     }
 
 
-    @DeleteMapping("/firestation")
+    @DeleteMapping("/firestations")
     public void deleteFireStation (@RequestParam String address, String station) {
         fireStationService.deleteFireStation(address,station);
     }

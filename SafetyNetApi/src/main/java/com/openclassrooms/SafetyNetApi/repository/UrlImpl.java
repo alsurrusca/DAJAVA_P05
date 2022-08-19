@@ -13,14 +13,15 @@ public class UrlImpl implements UrlRepository {
 
 
     @Override
+    //http://localhost:8080/childAlert?address=%3Caddress
     public List<ChildAlertDTO> getChildListByAdress(String address) {
         //On doit avoir une liste de personne, une liste des enfants
         List<Person> persons = new ArrayList<>();
         List<ChildAlertDTO> childList = new ArrayList<>();
-        PersonRepositoryImpl getListAddress = new PersonRepositoryImpl();
+        PersonRepositoryImpl personRepository = new PersonRepositoryImpl();
 
         //On les retrouve par adresse
-        persons = getListAddress.getPersonByAddress(address);
+        persons = personRepository.getPersonByAddress(address);
 
         //Pour toutes les personnes à cette address, on récupère nom et prénom et âge
         for (Person person : persons) {
@@ -29,13 +30,14 @@ public class UrlImpl implements UrlRepository {
                     if (medicalRecord.getAge() <= 18) {
 
                         //Si tout est bon, on crée donc un objet avec nom prenom et age et on récupere l'adresse
+
                         ChildAlertDTO childAlertDTO = new ChildAlertDTO();
 
                         childAlertDTO.setFirstName(medicalRecord.getFirstName());
                         childAlertDTO.setLastName(medicalRecord.getLastName());
                         childAlertDTO.setAge(medicalRecord.getAge());
-                        childAlertDTO.getHome().add(person);
 
+                        childList.add(childAlertDTO);
 
                     }
                 }
@@ -44,13 +46,15 @@ public class UrlImpl implements UrlRepository {
         return childList;
     }
 
+    //http://localhost:8080/personInfo?firstName=%3CfirstName%3E&lastName=%3ClastName
     @Override
     public List<PersonInfoDTO> getPersonListInfo(String firstName, String lastName) {
 
         //Avoir la liste des personnes avec les infos (nom, prénom, age, adresse, mail, allergies et médicaments)
+        //address=<address>
 
         List<PersonInfoDTO> personInfoList = new ArrayList<>();
-        List<Person> personList = new ArrayList<>();
+        List<Person> personList;
         PersonRepositoryImpl personRepositoryImpl = new PersonRepositoryImpl();
         MedicalRecordImpl medicalRecordImpl = new MedicalRecordImpl();
 
@@ -60,7 +64,7 @@ public class UrlImpl implements UrlRepository {
         //On regarde dans personList et on récupère les infos avec medical record, on l'ajoute a la liste des infos des persons
         for (Person person : personList) {
             MedicalRecord medicalRecords = medicalRecordImpl.getByFirstName(person.getFirstName());
-            personInfoList.add(person.getFirstName(), person.getLastName(), medicalRecords.getAge(), person.getAddress(), person.getEmail(), medicalRecords.getMedications(), medicalRecords.getAllergies()))
+            personInfoList.add(new PersonInfoDTO(person.getFirstName(), person.getLastName(), medicalRecords.getAge(), person.getAddress(), person.getEmail(), medicalRecords.getMedications(), medicalRecords.getAllergies()))
             ;
         }
 
@@ -68,10 +72,11 @@ public class UrlImpl implements UrlRepository {
     }
 
     @Override
+    //http://localhost:8080/phoneAlert?firestation=%3Cfirestation_number
     public PhoneAlertDTO getPhoneNumberListByStation(String station) {
 
         //On veut une liste des numéro de téléphone avec comme paramètre les stations
-        List<FireStation> fireStations = new ArrayList<>();
+        List<FireStation> fireStations;
         PhoneAlertDTO phoneAlertDTO = new PhoneAlertDTO();
         FireStationImpl fireStationImpl = new FireStationImpl();
 
@@ -92,15 +97,17 @@ public class UrlImpl implements UrlRepository {
 
 
     @Override
+    //http://localhost:8080/fire?address=1509%20Culver%20St
     public FirestationAdressListDTO getPersonListByAddress(String address) {
 
         //On veut une liste des gens par adresse
 
-        List<FireStation> fireStations = new ArrayList<>();
+        List<FireStation> fireStations;
         FirestationAdressListDTO firestationAdressListDTO = new FirestationAdressListDTO();
         FireStationImpl fireStationImpl = new FireStationImpl();
         List<Person> personList = new ArrayList<>();
         PersonRepositoryImpl personRepository = new PersonRepositoryImpl();
+        ListPersonFireStationByAddressDTO listPerson = new ListPersonFireStationByAddressDTO();
 
         MedicalRecordImpl medicalRecordImpl = new MedicalRecordImpl();
 
@@ -115,17 +122,21 @@ public class UrlImpl implements UrlRepository {
         }
 
         //On ajoute à la liste les noms, prénoms, age, medicaments et allergies
+        //Créer un nouveau DTO avec les infos (nom, prénom etc...) -> PersonListByAddressDTO
 
         for (Person person : personList){
             MedicalRecord medicalRecord = medicalRecordImpl.getByFirstName(person.getFirstName());
-            firestationAdressListDTO.getFirestationList().add(person.getFirstName(), person.getLastName(), medicalRecord.getAge(), medicalRecord.getMedications(), medicalRecord.getAllergies());
+            personList.add(new ListPersonFireStationByAddressDTO(person.getFirstName(), person.getLastName(), medicalRecord.getAge(), medicalRecord.getMedications(), medicalRecord.getAllergies()));
+
         }
             return firestationAdressListDTO;
     }
 
 
+
     @Override
     public PersonListByStationDTO getPersonFromStation(String station) {
+        //http://localhost:8080/firestation?stationNumber=<station_number>
 
         //List personne majeure et mineure
 
@@ -146,7 +157,7 @@ public class UrlImpl implements UrlRepository {
                     personByStationDTO.setAddress(person.getAddress());
                     personByStationDTO.setPhone(person.getPhone());
 
-                    personListByStationDTOS.getPersonByStation().add(personByStationDTO)
+                    personListByStationDTOS.getPersonByStation().add(personByStationDTO);
 
                             //On crée une liste de personne mineur et majeur
                     for (MedicalRecord medicalRecord : Data.getMedicalRecords()) {
@@ -165,6 +176,7 @@ public class UrlImpl implements UrlRepository {
     }
 
     @Override
+    //http://localhost:8080/communityEmail?city=<city>
     public CommunityEmailDTO getCommunityEmailList(String city) {
 
         //List des Emails
@@ -180,6 +192,8 @@ public class UrlImpl implements UrlRepository {
     }
 
     @Override
+    //http://localhost:8080/flood/stations?stations=%3Ca
+
     public List<AddressDTO> getHomeByStationNumber(String station) {
 
         //List des firestations en fonction des maisons
@@ -204,7 +218,7 @@ public class UrlImpl implements UrlRepository {
             MedicalRecord medicalRecord = medicalRecordImpl.getByFirstName(person.getFirstName());
             medicalRecords.add(medicalRecord);
 
-            addressDTOS.add(person.getLastName(), person.getPhone(), medicalRecord.getAge(), medicalRecord.getMedications(), medicalRecord.getAllergies()));
+            addressDTOS.add(new AddressDTO(person.getLastName(), person.getPhone(), medicalRecord.getAge(), medicalRecord.getMedications(), medicalRecord.getAllergies()));
         }
 
 

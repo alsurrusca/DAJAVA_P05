@@ -10,7 +10,7 @@ public class ChildAlertDTO {
     private String firstName;
     private String lastName;
     private Integer age;
-    private List<Person> home = new ArrayList<>();
+
 
     public String getFirstName() {
         return firstName;
@@ -36,11 +36,5 @@ public class ChildAlertDTO {
         this.age = age;
     }
 
-    public List<Person> getHome() {
-        return home;
-    }
 
-    public void setHome(List<Person> home) {
-        this.home = home;
-    }
 }
