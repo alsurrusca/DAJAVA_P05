@@ -124,10 +124,10 @@ public class UrlImpl implements UrlRepository {
     public FirestationAdressListDTO getPersonListByAddress(String address) {
         FirestationAdressListDTO fireAddressList = new FirestationAdressListDTO();
         List<FireStation> fireStations;
-        List<Person> personList = new ArrayList<>();
+        List<Person> listPerson = new ArrayList<>();
         FireStationImpl fireStationImpl = new FireStationImpl();
         PersonRepositoryImpl personRepository = new PersonRepositoryImpl();
-        Person person1 = new Person();
+
 
 
         fireStations = fireStationImpl.getFireStationByAddress(address);
@@ -135,15 +135,16 @@ public class UrlImpl implements UrlRepository {
 
         for (FireStation fireStation : fireStations) {
             List<Person> personList1 = personRepository.getPersonByAddress(address);
-            personList.addAll(personList1);
-            fireAddressList.setStation(fireStations);
+            listPerson.addAll(personList1);
+            String getStationFromAddress = fireStation.getStation();
+            fireAddressList.setStation(getStationFromAddress);
         }
-        for(Person person2 : personList){
+        for(Person person : listPerson){
 
                     MedicalRecordImpl medicalRecord = new MedicalRecordImpl();
 
-                    MedicalRecord medicalRecord1 = medicalRecord.getByFirstName(person2.getFirstName());
-                    fireAddressList.getPersonList().add(new FireAddressDTO(person2.getFirstName(), person2.getLastName(), medicalRecord1.getAge(),medicalRecord1.getMedications(), medicalRecord1.getAllergies()));
+                    MedicalRecord medicalRecord1 = medicalRecord.getByFirstName(person.getFirstName());
+                    fireAddressList.getPersonList().add(new FireAddressDTO(person.getFirstName(), person.getLastName(), medicalRecord1.getAge(),medicalRecord1.getMedications(), medicalRecord1.getAllergies()));
                 }
 
 
