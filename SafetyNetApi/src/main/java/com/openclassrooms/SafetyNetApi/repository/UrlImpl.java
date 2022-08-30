@@ -6,6 +6,7 @@ import com.openclassrooms.SafetyNetApi.model.FireStation;
 import com.openclassrooms.SafetyNetApi.model.MedicalRecord;
 import com.openclassrooms.SafetyNetApi.model.Person;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,19 +33,41 @@ public class UrlImpl implements UrlRepository {
                         //Si tout est bon, on crée donc un objet avec nom prenom et age et on récupere l'adresse
 
                         ChildAlertDTO childAlertDTO = new ChildAlertDTO();
-
                         childAlertDTO.setFirstName(medicalRecord.getFirstName());
                         childAlertDTO.setLastName(medicalRecord.getLastName());
                         childAlertDTO.setAge(medicalRecord.getAge());
+                        //childAlertDTO.getHome().add(person);
 
                         childList.add(childAlertDTO);
 
                     }
+
+/**
+ //Refaire une boucle for each si l'adresse est bonne alors on ajoute dans home tous les gens de plus de 18 ans
+ for(Person person1 : persons){
+ for(MedicalRecord medicalRecord1 : Data.getMedicalRecords()){
+ if(person.getAddress().equals(address)){
+ if(person.getLastName().equals(medicalRecord.getLastName())){
+ if(medicalRecord.getAge()>18){
+ ChildAlertDTO childAlertDTO = new ChildAlertDTO();
+
+ childAlertDTO.setHome(person.getFirstName(), person.getLastName());
+ childList.add(childAlertDTO);
+ }
+ }
+ }
+
+ }
+ }
+ **/
                 }
             }
         }
+
+
         return childList;
     }
+
 
     //http://localhost:8080/personInfo?firstName=%3CfirstName%3E&lastName=%3ClastName
     @Override
@@ -67,6 +90,7 @@ public class UrlImpl implements UrlRepository {
             personInfoList.add(new PersonInfoDTO(person.getFirstName(), person.getLastName(), medicalRecords.getAge(), person.getAddress(), person.getEmail(), medicalRecords.getMedications(), medicalRecords.getAllergies()))
             ;
         }
+
 
         return personInfoList;
     }
@@ -95,44 +119,33 @@ public class UrlImpl implements UrlRepository {
     }
 
 
-
     @Override
-    //http://localhost:8080/fire?address=1509%20Culver%20St
+    //http://localhost:8080/fire?address=7834%20Binoc%20Ave
     public FirestationAdressListDTO getPersonListByAddress(String address) {
-
-        //On veut une liste des gens par adresse
-
+        FirestationAdressListDTO fireAddressList = new FirestationAdressListDTO();
         List<FireStation> fireStations;
-        FirestationAdressListDTO firestationAdressListDTO = new FirestationAdressListDTO();
-        FireStationImpl fireStationImpl = new FireStationImpl();
         List<Person> personList = new ArrayList<>();
+        FireStationImpl fireStationImpl = new FireStationImpl();
         PersonRepositoryImpl personRepository = new PersonRepositoryImpl();
-        ListPersonFireStationByAddressDTO listPerson = new ListPersonFireStationByAddressDTO();
 
-        MedicalRecordImpl medicalRecordImpl = new MedicalRecordImpl();
 
         fireStations = fireStationImpl.getFireStationByAddress(address);
 
-        List<FireStation> firestationNumber = fireStationImpl.getFireStationByAddress(address);
-        firestationAdressListDTO.setFirestation(firestationNumber);
-
         for (FireStation fireStation : fireStations) {
-            List<Person> personList1 = personRepository.getPersonByAddress(fireStation.getAddress());
-            personList.addAll(personList1);
+            for (Person person : personList) {
+                if (fireStation.getAddress().equals(person.getAddress())) {
+
+                    FireAddressDTO fireAddressDTO = new FireAddressDTO();
+                    MedicalRecord medicalRecord = new MedicalRecord();
+
+                    fireAddressDTO.setFirstName(person.getFirstName());
+                    fireAddressList.getPersonList().add(new FireAddressDTO(person.getFirstName(), person.getLastName(), medicalRecord.getAge(),medicalRecord.getMedications(), medicalRecord.getAllergies()));
+                }
+
+            }
         }
-
-        //On ajoute à la liste les noms, prénoms, age, medicaments et allergies
-        //Créer un nouveau DTO avec les infos (nom, prénom etc...) -> PersonListByAddressDTO
-
-        for (Person person : personList){
-            MedicalRecord medicalRecord = medicalRecordImpl.getByFirstName(person.getFirstName());
-            personList.add(new ListPersonFireStationByAddressDTO(person.getFirstName(), person.getLastName(), medicalRecord.getAge(), medicalRecord.getMedications(), medicalRecord.getAllergies()));
-
-        }
-            return firestationAdressListDTO;
+        return fireAddressList;
     }
-
-
 
     @Override
     public PersonListByStationDTO getPersonFromStation(String station) {
@@ -151,15 +164,17 @@ public class UrlImpl implements UrlRepository {
                 if (fireStation.getAddress().equals(person.getAddress())) {
                     PersonByStationDTO personByStationDTO = new PersonByStationDTO();
 
+
                     //On ajoute les noms adresse et phone
                     personByStationDTO.setFirstName(person.getFirstName());
                     personByStationDTO.setLastName(person.getLastName());
                     personByStationDTO.setAddress(person.getAddress());
                     personByStationDTO.setPhone(person.getPhone());
 
+
                     personListByStationDTOS.getPersonByStation().add(personByStationDTO);
 
-                            //On crée une liste de personne mineur et majeur
+                    //On crée une liste de personne mineur et majeur
                     for (MedicalRecord medicalRecord : Data.getMedicalRecords()) {
                         if (medicalRecord.getFirstName().equals(personByStationDTO.getFirstName())) {
                             if (medicalRecord.getAge() > 18) {
@@ -194,6 +209,7 @@ public class UrlImpl implements UrlRepository {
     @Override
     //http://localhost:8080/flood/stations?stations=%3Ca
 
+
     public List<AddressDTO> getHomeByStationNumber(String station) {
 
         //List des firestations en fonction des maisons
@@ -209,12 +225,12 @@ public class UrlImpl implements UrlRepository {
 
         fireStations = fireStationImpl.getFireStationsByNumber(station);
 
-        for(FireStation fireStation : fireStations){
+        for (FireStation fireStation : fireStations) {
             List<Person> personList1 = personRepository.getPersonByAddress(fireStation.getAddress());
             personList.addAll(personList1);
         }
 
-        for(Person person : personList){
+        for (Person person : personList) {
             MedicalRecord medicalRecord = medicalRecordImpl.getByFirstName(person.getFirstName());
             medicalRecords.add(medicalRecord);
 

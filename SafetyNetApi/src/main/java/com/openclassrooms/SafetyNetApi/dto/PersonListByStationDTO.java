@@ -5,15 +5,15 @@ import java.util.List;
 
 public class PersonListByStationDTO {
 
-    private List<PersonListByStationDTO> personByStation = new ArrayList<>();
+    private List<PersonByStationDTO> personByStation = new ArrayList<>();
     private int mineur;
     private int majeur;
 
-    public List<PersonListByStationDTO> getPersonByStation() {
+    public List<PersonByStationDTO> getPersonByStation() {
         return personByStation;
     }
 
-    public void setPersonByStation(List<PersonListByStationDTO> personByStation) {
+    public void setPersonByStation(List<PersonByStationDTO> personByStation) {
         this.personByStation = personByStation;
     }
 

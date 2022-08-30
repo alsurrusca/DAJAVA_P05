@@ -1,6 +1,6 @@
 package com.openclassrooms.SafetyNetApi.dto;
 
-public class PersonByStationDTO extends PersonListByStationDTO {
+public class PersonByStationDTO {
 
     private String firstName;
     private String lastName;

@@ -7,23 +7,24 @@ import java.util.List;
 
 public class FirestationAdressListDTO {
 
-    private List<String> firestationList = new ArrayList<>();
-    private List<FireStation> firestation;
+    private int station;
+    private List<FireAddressDTO> personList = new ArrayList<>();
 
 
-    public List<String> getFirestationList() {
-        return firestationList;
+    public int getStation() {
+        return station;
     }
 
-    public void setFirestationList(List<String> firestationList) {
-        this.firestationList = firestationList;
+    public void setStation(int station) {
+        this.station = station;
     }
 
-    public List<FireStation> getFirestation() {
-        return firestation;
+    public List<FireAddressDTO> getPersonList() {
+        return personList;
     }
 
-    public void setFirestation(List<FireStation> firestation) {
-        this.firestation = firestation;
+    public void setPersonList(List<FireAddressDTO> personList) {
+        this.personList = personList;
     }
+
 }
