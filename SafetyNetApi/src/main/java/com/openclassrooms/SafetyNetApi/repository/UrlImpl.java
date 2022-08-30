@@ -127,23 +127,26 @@ public class UrlImpl implements UrlRepository {
         List<Person> personList = new ArrayList<>();
         FireStationImpl fireStationImpl = new FireStationImpl();
         PersonRepositoryImpl personRepository = new PersonRepositoryImpl();
+        Person person1 = new Person();
 
 
         fireStations = fireStationImpl.getFireStationByAddress(address);
 
+
         for (FireStation fireStation : fireStations) {
-            for (Person person : personList) {
-                if (fireStation.getAddress().equals(person.getAddress())) {
+            List<Person> personList1 = personRepository.getPersonByAddress(address);
+            personList.addAll(personList1);
+            fireAddressList.setStation(fireStations);
+        }
+        for(Person person2 : personList){
 
-                    FireAddressDTO fireAddressDTO = new FireAddressDTO();
-                    MedicalRecord medicalRecord = new MedicalRecord();
+                    MedicalRecordImpl medicalRecord = new MedicalRecordImpl();
 
-                    fireAddressDTO.setFirstName(person.getFirstName());
-                    fireAddressList.getPersonList().add(new FireAddressDTO(person.getFirstName(), person.getLastName(), medicalRecord.getAge(),medicalRecord.getMedications(), medicalRecord.getAllergies()));
+                    MedicalRecord medicalRecord1 = medicalRecord.getByFirstName(person2.getFirstName());
+                    fireAddressList.getPersonList().add(new FireAddressDTO(person2.getFirstName(), person2.getLastName(), medicalRecord1.getAge(),medicalRecord1.getMedications(), medicalRecord1.getAllergies()));
                 }
 
-            }
-        }
+
         return fireAddressList;
     }
 
