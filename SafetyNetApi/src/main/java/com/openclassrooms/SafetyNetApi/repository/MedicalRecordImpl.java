@@ -15,17 +15,17 @@ public class MedicalRecordImpl implements MedicalRecordRepository {
     }
 
     @Override
-    public MedicalRecord addMedicalrecords(MedicalRecord medicalRecord) {
+    public boolean addMedicalrecords(MedicalRecord medicalRecord) {
         MedicalRecord medicalToSave = null;
         if (medicalToSave == null) {
             Data.getMedicalRecords().add(medicalToSave);
         }
 
-        return medicalToSave;
+        return true;
     }
 
     @Override
-    public MedicalRecord deleteMedicalRecords(String firstName, String lastName, String birthdate) {
+    public boolean deleteMedicalRecords(String firstName, String lastName, String birthdate) {
         MedicalRecord medicalToDelete = null;
         for (MedicalRecord medicalRecord : Data.getMedicalRecords()) {
             if (medicalRecord.getFirstName().equals(firstName) && medicalRecord.getLastName().equals(lastName) && medicalRecord.getBirthdate().equals(birthdate)) {
@@ -35,26 +35,28 @@ public class MedicalRecordImpl implements MedicalRecordRepository {
 
         if (medicalToDelete != null) {
             Data.getMedicalRecords().remove(medicalToDelete);
-            return null;
+            return true;
         }
-        return null;
+        return false;
     }
 
     @Override
-    public MedicalRecord updateMedicalRecords(List<String> medications, List<String> allergies) {
+    public boolean updateMedicalRecords(List<String> medications, List<String> allergies) {
 
-        MedicalRecord medicalRecordToUpdate = null;
+        MedicalRecord medicalRecordToUpdate = new MedicalRecord();
+       // medicalRecordToUpdate = null;
         for (MedicalRecord medicalRecord : Data.getMedicalRecords()) {
             if (medicalRecord.getFirstName().equals(medicalRecord.getFirstName()) && medicalRecord.getLastName().equals(medicalRecord.getLastName())) {
                 medicalRecordToUpdate.getAllergies();
                 medicalRecordToUpdate.getMedications();
+                return true;
             }
 
 
         }
 
 
-        return medicalRecordToUpdate;
+        return false;
     }
 
     public MedicalRecord getByFirstName(String firstName) {

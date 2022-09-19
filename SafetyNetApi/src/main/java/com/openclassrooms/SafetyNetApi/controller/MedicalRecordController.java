@@ -35,21 +35,22 @@ public class MedicalRecordController {
      */
 
     @PostMapping("/medicalRecord")
-    public MedicalRecord createMedicalRecord (@RequestBody MedicalRecord medicalRecord) {
+    public boolean createMedicalRecord (@RequestBody MedicalRecord medicalRecord) {
         return medicalRecordService.saveMedicalRecords(medicalRecord);
     }
 
 
     @PutMapping("/medicalRecord")
-    public MedicalRecord updateMedicalRecord(@RequestParam List<String> medications, List<String> allergies) {
-        MedicalRecord updateMedicalRecord = medicalRecordService.updateMedicalRecord(medications, allergies);
+    public boolean updateMedicalRecord(@RequestParam List<String> medications, List<String> allergies) {
+        boolean updateMedicalRecord = medicalRecordService.updateMedicalRecord(medications, allergies);
         return updateMedicalRecord;
     }
 
 
     @DeleteMapping("/medicalRecord")
-    public void deleteMedicalRecord(@RequestParam String birthdate, String medications, String allergies) {
-        medicalRecordService.deleteMedicalRecords(birthdate, medications, allergies);
+    public boolean deleteMedicalRecord(@RequestParam String birthdate, String medications, String allergies) {
+       boolean deleteMedicalRecord = medicalRecordService.deleteMedicalRecords(birthdate, medications, allergies);
+        return deleteMedicalRecord;
     }
 
 

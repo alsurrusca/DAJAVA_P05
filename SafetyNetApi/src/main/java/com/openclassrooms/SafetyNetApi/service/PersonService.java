@@ -20,9 +20,6 @@ public class PersonService {
         return personRepository.findAll();
     }
 
-    public List<Person> getPerson(){
-        return personRepository.findAll();
-    }
 
     public Person updatePerson(
             String address,

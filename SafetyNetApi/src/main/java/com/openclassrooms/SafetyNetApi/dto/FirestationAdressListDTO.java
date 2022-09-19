@@ -1,21 +1,19 @@
 package com.openclassrooms.SafetyNetApi.dto;
 
-import com.openclassrooms.SafetyNetApi.model.FireStation;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class FirestationAdressListDTO {
 
-    private int station;
+    private String station;
     private List<FireAddressDTO> personList = new ArrayList<>();
 
 
-    public int getStation() {
+    public String getStation() {
         return station;
     }
 
-    public void setStation(int station) {
+    public void setStation(String station) {
         this.station = station;
     }
 
