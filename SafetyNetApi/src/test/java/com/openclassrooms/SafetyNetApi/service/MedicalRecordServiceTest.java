@@ -3,37 +3,49 @@ package com.openclassrooms.SafetyNetApi.service;
 import com.openclassrooms.SafetyNetApi.data.Data;
 import com.openclassrooms.SafetyNetApi.model.MedicalRecord;
 import com.openclassrooms.SafetyNetApi.repository.MedicalRecordImpl;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.junit.Test;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.List;
 
+
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
-@ExtendWith(MockitoExtension.class)
+@WebMvcTest(MedicalRecordService.class)
+@AutoConfigureMockMvc
 public class MedicalRecordServiceTest {
 
 
-    private MedicalRecordService medicalRecordService = new MedicalRecordService();
-    @Mock
-    private MedicalRecordImpl medicalRecordImpl = new MedicalRecordImpl();
-    @Mock
-    private MedicalRecord medicalRecord = new MedicalRecord();
+
+    @Autowired
+    private MedicalRecordService medicalRecordService;
+
+    @MockBean
+    private MedicalRecordImpl medicalRecordImpl;
+
+    @MockBean
+    private MedicalRecord medicalRecord;
 
     @Test
+    //OK
     public void getMedicalRecordTest() {
 
+        medicalRecordService = new MedicalRecordService();
+
+        medicalRecordImpl = new MedicalRecordImpl();
         //Then
 
         List<String> medication = List.of("aznol:350mg");
         List<String> allergies = List.of("nillacilan");
+        medicalRecord = new MedicalRecord("FistName", "LastName", "01/01/2001", medication, allergies);
+       medicalRecordImpl.findAll();
 
-        medicalRecord = new MedicalRecord("firstName", "lastName", "01/23/4567", medication, allergies);
-
-        Data.getMedicalRecords().add(medicalRecord);
 
         assertThat(medicalRecordService.getMedicalRecord().size() != 0);
     }
@@ -41,15 +53,23 @@ public class MedicalRecordServiceTest {
     @Test
     public void updateMedicalRecordTest() {
 
+        medicalRecordService = new MedicalRecordService();
+        medicalRecordImpl = new MedicalRecordImpl();
+
+
         List<String> medication = List.of("aznol:350mg");
         List<String> allergies = List.of("nillacilan");
         medicalRecord = new MedicalRecord("firstName", "lastName", "01/23/4567", medication, allergies);
 
         Data.getMedicalRecords().add(medicalRecord);
 
-        //assertThat(medicalRecordService.updateMedicalRecords(medication, allergies)).isEqualTo(medication);
-        assertThat(medicalRecord.getAllergies()).isEqualTo(allergies);
-        assertThat(medicalRecord.getMedications()).isEqualTo(medication);
+        List<String> medication1 = List.of("doliprane");
+        List<String> allergies1 = List.of("doliprane");
+        medicalRecord = new MedicalRecord("firstName", "lastName", "01/23/4567", medication1, allergies1);
+
+        assertTrue(medicalRecordService.updateMedicalRecord(medication1,allergies1));
+
+
 
 
     }
@@ -57,23 +77,33 @@ public class MedicalRecordServiceTest {
     @Test
     public void addMedicalRecordTest() {
 
-        List<String> medication = List.of("aznol:350mg");
-        List<String> allergies = List.of("nillacilan");
+       medicalRecordImpl = new MedicalRecordImpl();
+       medicalRecordService = new MedicalRecordService();
+       medicalRecord = new MedicalRecord();
+
+        List<String> medication = List.of(("aznol:350mg"));
+       List<String> allergies;
+
+       allergies = List.of("nillacilan");
+
+       medicalRecord.setMedications(medication);
+       medicalRecord.setAllergies(allergies);
 
         medicalRecord = new MedicalRecord("firstName", "lastName", "01/23/4567", medication, allergies);
 
-        Data.getMedicalRecords().add(medicalRecord);
 
-        //assertThat(medicalRecord.getMedications()).isEqualTo("aznol:350mg");
-        //assertThat(medicalRecord.getAllergies()).isEqualTo("nillacilan");
-        assertThat(medicalRecord.getMedications()).isNotNull();
-        assertThat(medicalRecord.getAllergies()).isNotNull();
+        assertTrue(medicalRecordService.saveMedicalRecords(medicalRecord));
+       assertThat(medicalRecord.getBirthdate()).isEqualTo("01/23/4567");
 
 
     }
 
     @Test
     public void deleteMedicalRecordTest() {
+
+        medicalRecordImpl = new MedicalRecordImpl();
+        medicalRecordService = new MedicalRecordService();
+
 
 
         List<String> medication = List.of("aznol:350mg");
@@ -84,10 +114,10 @@ public class MedicalRecordServiceTest {
 
         medicalRecordImpl.deleteMedicalRecords("firstName", "lastName", "01/23/4567");
 
-        //On prend la date de naissance car si 2 personnes à le même nom, il n'y a quasiment pas de chance qu'elles aient la même date de naissance
-        assertThat(medicalRecordService.getMedicalRecord()).doesNotHaveToString("01/23/4567");
+        assertThat(medicalRecordService.deleteMedicalRecords("01/23/4567", "firstName", "lastName")).doesNotHaveToString("01/23/4567");
 
     }
+
 
 
 }

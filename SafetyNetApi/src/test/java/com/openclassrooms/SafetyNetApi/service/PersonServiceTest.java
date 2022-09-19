@@ -5,35 +5,36 @@ import com.openclassrooms.SafetyNetApi.model.Person;
 
 import com.openclassrooms.SafetyNetApi.repository.PersonRepositoryImpl;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
 
 
-@ExtendWith(MockitoExtension.class)
+
+@WebMvcTest(PersonService.class)
+@AutoConfigureMockMvc
 public class PersonServiceTest {
 
-    @InjectMocks
-    private PersonService personService = new PersonService();
+    @Autowired
+    private PersonService personService;
 
-    private Person person = new Person();
+    @MockBean
+    private Person person;
 
-
-    private PersonRepositoryImpl personRepository = new PersonRepositoryImpl();
+    @MockBean
+    private PersonRepositoryImpl personRepository;
 
 
     @Test
     public void getPersonTest(){
+        person = new Person();
 
         //WHEN
 
@@ -45,33 +46,40 @@ public class PersonServiceTest {
         person.setEmail("email@email.com");
         person.setPhone("12345678");
 
-        Data.getPersons().add(person);
-
         //Then
-        assertThat(personService.getPersons().size() != 0);
 
+        List<Person> persons = new ArrayList<Person>();
+        persons.add(person);
+
+        Mockito.when(personRepository.findAll()).thenReturn(persons);
+
+        assertThat(personService.getPersons().size() != 0);
     }
 
     @Test
     public void updatePersonTest(){
-
+        person = new Person();
 
         //When
         person.setAddress("address");
         person.setCity("city");
-        person.setZip("Zip");
+        person.setZip("zip");
         person.setEmail("email@email.com");
         person.setPhone("12345678");
 
-        Data.getPersons().add(person);
+        List<Person> updatePerson = new ArrayList<Person>();
+        updatePerson.add(person);
+
+        Mockito.when(personRepository.update("address","city","zip","12345678","email@email.com")).thenReturn(person);
 
         assertThat(personService.updatePerson("address","city","zip","12345678","email@email.com")).isEqualTo(person);
-
     }
+
 
     @Test
     public void deletePersonTest(){
 
+       person = new Person();
 
 
         //When
@@ -84,8 +92,8 @@ public class PersonServiceTest {
         person.setEmail("email@email.com");
         person.setPhone("12345678");
 
-        Data.getPersons().add(person);
 
+        Mockito.when(personRepository.deletePerson("firstName","lastName")).thenReturn(person);
         personRepository.deletePerson("firstName", "lastName");
 
         assertThat(personService.getPersons()).doesNotHaveToString("firstName");
@@ -98,6 +106,9 @@ public class PersonServiceTest {
     @Test
     public void addPersonTest(){
 
+        personService = new PersonService();
+        person = new Person();
+
         person.setFirstName("firstName");
         person.setLastName("lastName");
         person.setAddress("address");
@@ -106,9 +117,8 @@ public class PersonServiceTest {
         person.setEmail("email@email.com");
         person.setPhone("12345678");
 
-        Data.getPersons().add(person);
-
-        assertThat(person.getFirstName()).isEqualTo("firstName");
+        Mockito.when(personRepository.addPerson(person)).thenReturn(person);
+        assertThat(personRepository.addPerson(person)).isEqualTo(person);
 
     }
 }
