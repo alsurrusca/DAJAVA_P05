@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -22,12 +23,12 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 @AutoConfigureMockMvc
 public class UrlServiceTest {
 
-   /** Person person = new Person();
+    private Person person = new Person();
 
+    @MockBean
+    private UrlService urlService;
 
-    UrlService urlService = new UrlService();
-
-    @Mock
+    @MockBean
     UrlImpl urlImpl;
 
 
@@ -36,6 +37,7 @@ public class UrlServiceTest {
 
         Person person = new Person();
         urlImpl = new UrlImpl();
+        urlService = new UrlService();
 
         //On créer une nouvelle personne
         person.setFirstName("firstName");
@@ -55,7 +57,9 @@ public class UrlServiceTest {
     @Test
     public void getPersonInfoTest() {
         urlImpl = new UrlImpl();
+        urlService = new UrlService();
         Person person = new Person();
+
         person.setFirstName("firstName");
         person.setLastName("lastName");
         person.setAddress("address");
@@ -76,6 +80,7 @@ public class UrlServiceTest {
     public void getPhoneNumberFromStationTest() {
 
         urlImpl = new UrlImpl();
+        urlService = new UrlService();
 
         person.setFirstName("firstName");
         person.setLastName("lastName");
@@ -91,7 +96,7 @@ public class UrlServiceTest {
 
         urlImpl.getPhoneNumberListByStation("1");
 
-        //assertThat(urlService.getPhoneNumberFromStation("1")).isNotNull();
+        assertThat(urlService.getPhoneNumberFromeStation("1")).isNotNull();
 
     }
 
@@ -99,7 +104,7 @@ public class UrlServiceTest {
     public void getPersonListByAddressTest() {
 
         urlImpl = new UrlImpl();
-
+        urlService = new UrlService();
         person.setFirstName("firstName");
         person.setLastName("lastName");
         person.setAddress("address");
@@ -118,6 +123,7 @@ public class UrlServiceTest {
     public void getPersonFromStationNumberTest() {
 
         urlImpl = new UrlImpl();
+        urlService = new UrlService();
 
         person.setFirstName("firstName");
         person.setLastName("lastName");
@@ -141,6 +147,8 @@ public class UrlServiceTest {
     public void getCommunityEmailListTest() {
 
         urlImpl = new UrlImpl();
+        urlService = new UrlService();
+
         person.setFirstName("firstName");
         person.setLastName("lastName");
         person.setAddress("address");
@@ -159,6 +167,7 @@ public class UrlServiceTest {
     public void getHomeByStationTest() {
 
         urlImpl = new UrlImpl();
+        urlService = new UrlService();
         List<ListHome> homeByStationNumber = new ArrayList<>();
         Person person = new Person();
 
@@ -178,14 +187,14 @@ public class UrlServiceTest {
         fireStation1.setStation("2");
         fireStation1.setAddress("address2");
 
-        List<String> fireStationStation = new ArrayList<String>();
-        fireStationStation.add(fireStation.getStation());
-        fireStationStation.add(fireStation1.getStation());
+        List<String> fireStationStationNumber = new ArrayList<String>();
+        fireStationStationNumber.add(fireStation.getStation());
+        fireStationStationNumber.add(fireStation1.getStation());
 
-        urlImpl.getHomeByStationNumber(fireStationStation);
+        urlImpl.getHomeByStationNumber(fireStationStationNumber);
 
-        assertThat(urlService.getHomeByStation(fireStationStation)).isNotNull();
+        assertThat(urlService.getHomeByStation(fireStationStationNumber)).isNotNull();
 
     }
-**/
+
 }

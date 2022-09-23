@@ -15,7 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.when;
 
 
 @WebMvcTest(PersonService.class)
@@ -33,7 +34,7 @@ public class PersonServiceTest {
 
 
     @Test
-    public void getPersonTest(){
+    public void getPersonTest() {
         person = new Person();
 
         //WHEN
@@ -51,40 +52,39 @@ public class PersonServiceTest {
         List<Person> persons = new ArrayList<Person>();
         persons.add(person);
 
-        Mockito.when(personRepository.findAll()).thenReturn(persons);
+        when(personRepository.findAll()).thenReturn(persons);
 
         assertThat(personService.getPersons().size() != 0);
     }
 
     @Test
-    public void updatePersonTest(){
-        person = new Person();
+    public void updatePersonTest() {
+
+        personService = new PersonService();
+        personRepository = new PersonRepositoryImpl();
 
         //When
-        person.setAddress("address");
-        person.setCity("city");
-        person.setZip("zip");
-        person.setEmail("email@email.com");
-        person.setPhone("12345678");
+        person = new Person("firstname", "lastname", "address", "city", "zip", "12345678", "email@email.com");
 
-        List<Person> updatePerson = new ArrayList<Person>();
-        updatePerson.add(person);
+        Data.getPersons().add(person);
 
-        Mockito.when(personRepository.update("address","city","zip","12345678","email@email.com")).thenReturn(person);
+        String address1 = "address1";
+        person = new Person("firstname", "lastname", address1, "city", "zip", "12345678", "email@email.com");
 
-        assertThat(personService.updatePerson("address","city","zip","12345678","email@email.com")).isEqualTo(person);
+
+        assertTrue(personService.updatePerson(address1, "city", "zip", "12345678", "email@email.com"));
     }
 
 
     @Test
-    public void deletePersonTest(){
+    public void deletePersonTest() {
 
-       person = new Person();
+        personRepository = new PersonRepositoryImpl();
 
-
+        person = new Person("firstName","lastName","address","city","zip","phone","email@email.com");
         //When
         //On ajoute une nouvelle personne pour le test
-        person.setFirstName("firstName");
+        /**person.setFirstName("firstName");
         person.setLastName("lastName");
         person.setAddress("address");
         person.setCity("city");
@@ -92,22 +92,26 @@ public class PersonServiceTest {
         person.setEmail("email@email.com");
         person.setPhone("12345678");
 
+         **/
+        Data.getPersons().add(person);
+        //List<Person> persons = new ArrayList<>();
+        //persons.add(person);
 
-        Mockito.when(personRepository.deletePerson("firstName","lastName")).thenReturn(person);
+        //Mockito.when(Data.getPersons()).thenReturn(persons);
+
         personRepository.deletePerson("firstName", "lastName");
 
-        assertThat(personService.getPersons()).doesNotHaveToString("firstName");
-
-
+        assertThat(personService.deletePerson("fistName", "lastName")).doesNotHaveToString("firstName");
 
 
     }
 
     @Test
-    public void addPersonTest(){
+    public void addPersonTest() {
 
         personService = new PersonService();
         person = new Person();
+        personRepository = new PersonRepositoryImpl();
 
         person.setFirstName("firstName");
         person.setLastName("lastName");
@@ -117,8 +121,13 @@ public class PersonServiceTest {
         person.setEmail("email@email.com");
         person.setPhone("12345678");
 
-        Mockito.when(personRepository.addPerson(person)).thenReturn(person);
-        assertThat(personRepository.addPerson(person)).isEqualTo(person);
+        personService.addPerson(person);
+
+        Data.getPersons().add(person);
+
+        assertTrue(personService.addPerson(person));
+        assertThat(person.getFirstName()).isEqualTo("firstName");
 
     }
+
 }
