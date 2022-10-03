@@ -1,31 +1,26 @@
 package com.openclassrooms.SafetyNetApi.controller;
 
+
+
 import com.openclassrooms.SafetyNetApi.model.MedicalRecord;
-import com.openclassrooms.SafetyNetApi.repository.MedicalRecordImpl;
 import com.openclassrooms.SafetyNetApi.service.MedicalRecordService;
 import org.junit.Test;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mockito;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-
-
-import java.util.ArrayList;
 import java.util.List;
 
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.mockito.Mockito.when;
-/**
-//@AutoConfigureMockMvc
-@WebMvcTest(MedicalRecordController.class)
-@ExtendWith(MockitoExtension.class)
+
+@AutoConfigureMockMvc
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@RunWith(SpringRunner.class)
 
 
 public class MedicalRecordControllerTest {
@@ -33,46 +28,55 @@ public class MedicalRecordControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-    @InjectMocks
-    private MedicalRecordController medicalRecordController = new MedicalRecordController();
-
     @MockBean
-    private MedicalRecordImpl medicalRecordImpl = new MedicalRecordImpl();
-
-    @MockBean
-    private MedicalRecord medicalRecord;
-
-   /** @BeforeEach
-    public void setUp(){
-
-       // mockMvc = MockMvcBuilders.standaloneSetup(medicalRecordController).build();
-    }
+    private MedicalRecordService medicalRecordService;
 
     @Test
     public void getMedicalRecordTest() throws Exception {
 
-        List<String> medication = List.of("aznol:350mg");
-        List<String> allergies = List.of("nillacilan");
-        medicalRecord = new MedicalRecord("FistName", "LastName", "01/01/2001", medication, allergies);
-
-        //Mockito.when(medicalRecordImpl.findAll()).thenReturn((List<MedicalRecord>) medicalRecord);
-        mockMvc.perform(get("/medicalRecord"))
+               mockMvc.perform(get("/medicalRecord"))
                 .andExpect(status().isOk());
 
     }
 
-
-
-   @Autowired
-   private MedicalRecordService medicalRecordService;
 
     @Test
-    public void getMedicalRecordsTest_shouldReturnOk() throws Exception {
-        medicalRecordService = new MedicalRecordService();
+    public void createMedicalRecord() throws Exception {
 
-        when(medicalRecordService.getMedicalRecord()).thenReturn(new ArrayList<>());
-        mockMvc.perform(get("/medicalrecords"))
+        List<String> medications = List.of("medications");
+        List<String> allergies = List.of("allergies");
+        MedicalRecord medicalRecord = new MedicalRecord("Firstname","Lastname", "01/01/2000", medications, allergies);
+        when(medicalRecordService.saveMedicalRecords(medicalRecord)).thenReturn(true);
+        mockMvc.perform(get("/medicalRecord?firstName=Firstname&lastName=Lastname&birthdate=01/01/2000&medications=medications&allergies=allergies"))
                 .andExpect(status().isOk());
     }
+
+    @Test
+    public void deleteMedicalRecordTest() throws Exception {
+        List<String> medications = List.of("medications");
+        List<String> allergies = List.of("allergies");
+        MedicalRecord medicalRecord = new MedicalRecord("Firstname","Lastname", "01/01/2000", medications, allergies);
+        when(medicalRecordService.deleteMedicalRecords("01/01/2000","Firstname","Lastname")).thenReturn(true);
+        mockMvc.perform(delete("/medicalRecord?birthdate=01/01/2000&firstName=Firstname&lastName=Lastname"))
+                .andExpect(status().isOk());
+
+    }
+
+    @Test
+    public void updateMedicalRecordTest() throws Exception {
+        List<String> medications = List.of("medications");
+        List<String> allergies = List.of("allergies");
+        MedicalRecord medicalRecord = new MedicalRecord("Firstname","Lastname", "01/01/2000", medications, allergies);
+
+        when(medicalRecordService.saveMedicalRecords(medicalRecord)).thenReturn(true);
+
+        List<String> medications1 = List.of("medications1");
+        List<String> allergies1 = List.of("allergies1");
+
+        mockMvc.perform(put("/medicalRecord?firstName=name&lastName=name&birthdate=03/10/2022&medications=medications1&allergies=allergies1"))
+                .andExpect(status().isOk());
+
+        verify(medicalRecordService,times(1)).updateMedicalRecord("name","name","03/10/2022",medications1,allergies1);
+
+    }
 }
-**/

@@ -67,7 +67,7 @@ public class MedicalRecordServiceTest {
         List<String> allergies1 = List.of("doliprane");
         medicalRecord = new MedicalRecord("firstName", "lastName", "01/23/4567", medication1, allergies1);
 
-        assertTrue(medicalRecordService.updateMedicalRecord(medication1,allergies1));
+        assertTrue(medicalRecordService.updateMedicalRecord("firstName","lastName","01/23/4567", medication1,allergies1));
 
 
 

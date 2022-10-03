@@ -105,6 +105,7 @@ public class UrlServiceTest {
 
         urlImpl = new UrlImpl();
         urlService = new UrlService();
+
         person.setFirstName("firstName");
         person.setLastName("lastName");
         person.setAddress("address");
