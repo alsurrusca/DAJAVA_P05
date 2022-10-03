@@ -16,18 +16,13 @@ public class PersonRepositoryImpl implements PersonRepository {
     }
 
     @Override
-    public Person addPerson(Person person) {
+    public boolean addPerson(Person person) {
 
-        Person personToAdd = null;
-        if (personToAdd == null) {
-            Data.getPersons();
-        }
-
-        return personToAdd;
+        return Data.getPersons().add(person);
     }
 
     @Override
-    public Person deletePerson(String firstName, String lastName) {
+    public boolean deletePerson(String firstName, String lastName) {
         Person personToDelete = null;
         for (Person person : Data.getPersons()) {
             if (person.getFirstName().equals(firstName) && person.getLastName().equals(lastName)) {
@@ -37,15 +32,15 @@ public class PersonRepositoryImpl implements PersonRepository {
         }
         if (personToDelete != null) {
             Data.getPersons().remove(personToDelete);
-            return null;
+            return true;
         }
-        return null;
+        return false;
     }
 
 
     @Override
-    public Person update(String address, String city, String zip, String phone, String email) {
-        Person personToUpdate = null;
+    public boolean updatePerson(String address, String city, String zip, String phone, String email) {
+        Person personToUpdate = new Person();
         for (Person person1 : Data.getPersons()) {
             if (person1.getFirstName().equals(person1.getFirstName()) && person1.getLastName().equals(person1.getLastName())) {
                 personToUpdate.getAddress();
@@ -53,10 +48,12 @@ public class PersonRepositoryImpl implements PersonRepository {
                 personToUpdate.getZip();
                 personToUpdate.getEmail();
                 personToUpdate.getPhone();
+
+                return true;
             }
 
         }
-        return personToUpdate;
+        return false;
     }
 
     @Override
@@ -79,17 +76,6 @@ public class PersonRepositoryImpl implements PersonRepository {
             }
         }
         return personListByAddress;
-    }
-
-
-    public List<Person> getPersonByName(String firstName, String lastName) {
-        List<Person> personListByName = new ArrayList<>();
-        for(Person person : Data.getPersons()){
-            if(person.getFirstName().equals(firstName) && person.getLastName().equals(lastName)){
-                personListByName.add(person);
-            }
-        }
-        return personListByName;
     }
 
 }

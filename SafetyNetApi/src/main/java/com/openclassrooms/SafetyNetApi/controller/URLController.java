@@ -63,7 +63,7 @@ public class URLController {
     //OK
 
     @GetMapping(value = "/flood/stations")
-    public List<AddressDTO> getHomeByStation(@RequestParam(value = "stations") String station) {
+    public List<AddressDTO> getHomeByStation(@RequestParam(value = "stations") List<String> station) {
         List<AddressDTO> addressDTOS = urlService.getHomeByStation(station);
         return addressDTOS;
     }

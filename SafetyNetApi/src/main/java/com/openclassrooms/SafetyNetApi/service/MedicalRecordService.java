@@ -23,10 +23,13 @@ public class MedicalRecordService {
 
 
         public boolean updateMedicalRecord(
+                String firstName,
+                String lastName,
+                String birthdate,
                 List<String> medications,
                 List<String> allergies) {
 
-            boolean updateMedicalRecord = medicalRecordRepository.updateMedicalRecords(medications, allergies);
+            boolean updateMedicalRecord = medicalRecordRepository.updateMedicalRecords(firstName, lastName, birthdate, medications, allergies);
             return updateMedicalRecord;
         }
 

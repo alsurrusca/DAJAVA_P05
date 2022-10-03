@@ -3,7 +3,6 @@ package com.openclassrooms.SafetyNetApi.controller;
 import com.openclassrooms.SafetyNetApi.model.FireStation;
 import com.openclassrooms.SafetyNetApi.service.FireStationService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,21 +26,22 @@ public class FireStationController {
 
 
     @PostMapping("/firestations")
-    public FireStation createFireStation (@RequestBody FireStation fireStation) {
+    public boolean createFireStation (@RequestBody FireStation fireStation) {
         return fireStationService.addFireStation(fireStation);
     }
 
 
     @PutMapping("/firestations")
-    public FireStation updateFireStation(@RequestParam String address, String station) {
-        FireStation updateFireStation = fireStationService.updateFireStation(address, station);
+    public boolean updateFireStation(@RequestParam String address, String station) {
+        boolean updateFireStation = fireStationService.updateFireStation(address, station);
         return updateFireStation;
     }
 
 
     @DeleteMapping("/firestations")
-    public void deleteFireStation (@RequestParam String address, String station) {
-        fireStationService.deleteFireStation(address,station);
+    public boolean deleteFireStation (@RequestParam String address, String station) {
+        boolean deleteFire = fireStationService.deleteFireStation(address,station);
+        return deleteFire;
     }
 
 

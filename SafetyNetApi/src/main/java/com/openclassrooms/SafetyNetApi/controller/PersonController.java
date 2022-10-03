@@ -19,7 +19,7 @@ import static aQute.bnd.osgi.Processor.log;
 public class PersonController {
 
     @Autowired
-    private PersonService personService;
+    private PersonService personService = new PersonService();
 
     /**
      * Read - Get all Person
@@ -42,14 +42,14 @@ public class PersonController {
      */
 
     @PostMapping("/person")
-    public Person createPerson(@RequestBody Person person) {
+    public boolean createPerson(@RequestBody Person person) {
         return personService.addPerson(person);
     }
 
 
     @PutMapping("/person")
-    public Person updatePerson(@RequestParam String address, String city, String zip, String phone, String email) {
-        Person updatePerson = personService.updatePerson(address, city, zip, phone, email);
+    public boolean updatePerson(@RequestParam String address, String city, String zip, String phone, String email) {
+        boolean updatePerson = personService.updatePerson(address, city, zip, phone, email);
         return updatePerson;
     }
 

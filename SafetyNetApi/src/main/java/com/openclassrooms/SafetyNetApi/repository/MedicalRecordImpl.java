@@ -41,10 +41,9 @@ public class MedicalRecordImpl implements MedicalRecordRepository {
     }
 
     @Override
-    public boolean updateMedicalRecords(List<String> medications, List<String> allergies) {
+    public boolean updateMedicalRecords(String firstName, String lastName, String birthdate, List<String> medications, List<String> allergies) {
 
         MedicalRecord medicalRecordToUpdate = new MedicalRecord();
-       // medicalRecordToUpdate = null;
         for (MedicalRecord medicalRecord : Data.getMedicalRecords()) {
             if (medicalRecord.getFirstName().equals(medicalRecord.getFirstName()) && medicalRecord.getLastName().equals(medicalRecord.getLastName())) {
                 medicalRecordToUpdate.getAllergies();
@@ -58,6 +57,7 @@ public class MedicalRecordImpl implements MedicalRecordRepository {
 
         return false;
     }
+
 
     public MedicalRecord getByFirstName(String firstName) {
         for (MedicalRecord medicalRecord : Data.getMedicalRecords()){

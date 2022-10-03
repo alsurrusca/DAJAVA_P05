@@ -1,6 +1,7 @@
 package com.openclassrooms.SafetyNetApi.service;
 
 import com.openclassrooms.SafetyNetApi.model.FireStation;
+import com.openclassrooms.SafetyNetApi.repository.FireStationImpl;
 import com.openclassrooms.SafetyNetApi.repository.FireStationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,29 +12,23 @@ import java.util.List;
 public class FireStationService {
 
     @Autowired
-    private FireStationRepository fireStationRepository;
+    private FireStationImpl fireStationRepository = new FireStationImpl();
 
     public List<FireStation> getFireStation() {
         return fireStationRepository.findAll();
     }
 
-    public List<FireStation> getFireStations() {
-        return fireStationRepository.findAll();
-    }
-
-    public FireStation updateFireStation(
+    public boolean updateFireStation(
             String address,
             String station) {
-
-        FireStation updateFireStation = fireStationRepository.updateFireStation(address, station);
-        return updateFireStation;
+        return fireStationRepository.updateFireStation(address,station);
     }
 
-    public FireStation addFireStation(FireStation fireStation) {
+    public boolean addFireStation(FireStation fireStation) {
         return fireStationRepository.addFireStation(fireStation);
     }
 
-    public FireStation deleteFireStation(String address, String station) {
+    public boolean deleteFireStation(String address, String station) {
         return fireStationRepository.deleteFireStation(address, station);
     }
 }

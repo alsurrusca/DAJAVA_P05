@@ -15,18 +15,13 @@ public class FireStationImpl implements FireStationRepository {
     }
 
     @Override
-    public FireStation addFireStation(FireStation fireStation) {
-        FireStation fireStationToAdd = null;
-        if (fireStationToAdd == null) {
-            Data.getFireStations().add(fireStationToAdd);
-        }
-
-        return fireStationToAdd;
+    public boolean addFireStation(FireStation fireStation) {
+      return Data.getFireStations().add(fireStation);
     }
 
 
     @Override
-    public FireStation deleteFireStation(String adress, String station) {
+    public boolean deleteFireStation(String adress, String station) {
         FireStation fireStationToDelete = null;
         for (FireStation fireStation : Data.getFireStations()) {
             if (fireStation.getAddress().equals(adress) && fireStation.getStation().equals(station)) {
@@ -36,26 +31,38 @@ public class FireStationImpl implements FireStationRepository {
         }
         if (fireStationToDelete != null) {
             Data.getPersons().remove(fireStationToDelete);
-            return null;
+            return true;
         }
-        return null;
+        return false;
     }
 
 
     @Override
-    public FireStation updateFireStation(String address, String station) {
-        FireStation fireStationToUpdate = null;
+    public boolean updateFireStation(String address, String station) {
         for (FireStation fireStation : Data.getFireStations()) {
             if (fireStation.getAddress().equals(address) && fireStation.getStation().equals(station)) {
                 fireStation.getStation();
                 fireStation.getAddress();
+                return true;
             }
 
         }
-        return fireStationToUpdate;
+        return false;
     }
 
     public List<FireStation> getFireStationsByNumber(String station) {
+        List<FireStation> fireStationsList = new ArrayList<>();
+
+        for(FireStation fireStation : Data.getFireStations()){
+            if(fireStation.getStation().equals(station)){
+                fireStationsList.add(fireStation);
+            }
+        }
+
+        return fireStationsList;
+    }
+
+    public List<FireStation> getFireStationsByNumber(List<String> station) {
         List<FireStation> fireStationsList = new ArrayList<>();
 
         for(FireStation fireStation : Data.getFireStations()){

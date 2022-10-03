@@ -41,8 +41,8 @@ public class MedicalRecordController {
 
 
     @PutMapping("/medicalRecord")
-    public boolean updateMedicalRecord(@RequestParam List<String> medications, List<String> allergies) {
-        boolean updateMedicalRecord = medicalRecordService.updateMedicalRecord(medications, allergies);
+    public boolean updateMedicalRecord(@RequestParam String firstName, @RequestParam String lastName, @RequestParam String birthdate, @RequestParam List<String> medications,@RequestParam List<String> allergies) {
+        boolean updateMedicalRecord = medicalRecordService.updateMedicalRecord(firstName, lastName, birthdate, medications, allergies);
         return updateMedicalRecord;
     }
 

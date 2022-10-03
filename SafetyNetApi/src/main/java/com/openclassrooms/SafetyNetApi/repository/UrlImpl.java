@@ -82,7 +82,7 @@ public class UrlImpl implements UrlRepository {
         MedicalRecordImpl medicalRecordImpl = new MedicalRecordImpl();
 
         //On récupère nom et prénoms
-        personList = personRepositoryImpl.getPersonByName(firstName, lastName);
+        personList = personRepositoryImpl.getPersonListByName(firstName, lastName);
 
         //On regarde dans personList et on récupère les infos avec medical record, on l'ajoute a la liste des infos des persons
         for (Person person : personList) {
@@ -129,7 +129,6 @@ public class UrlImpl implements UrlRepository {
         PersonRepositoryImpl personRepository = new PersonRepositoryImpl();
 
 
-
         fireStations = fireStationImpl.getFireStationByAddress(address);
 
 
@@ -139,13 +138,13 @@ public class UrlImpl implements UrlRepository {
             String getStationFromAddress = fireStation.getStation();
             fireAddressList.setStation(getStationFromAddress);
         }
-        for(Person person : listPerson){
+        for (Person person : listPerson) {
 
-                    MedicalRecordImpl medicalRecord = new MedicalRecordImpl();
+            MedicalRecordImpl medicalRecord = new MedicalRecordImpl();
 
-                    MedicalRecord medicalRecord1 = medicalRecord.getByFirstName(person.getFirstName());
-                    fireAddressList.getPersonList().add(new FireAddressDTO(person.getFirstName(), person.getLastName(), medicalRecord1.getAge(),medicalRecord1.getMedications(), medicalRecord1.getAllergies()));
-                }
+            MedicalRecord medicalRecord1 = medicalRecord.getByFirstName(person.getFirstName());
+            fireAddressList.getPersonList().add(new FireAddressDTO(person.getFirstName(), person.getLastName(), medicalRecord1.getAge(), medicalRecord1.getMedications(), medicalRecord1.getAllergies()));
+        }
 
 
         return fireAddressList;
@@ -210,11 +209,12 @@ public class UrlImpl implements UrlRepository {
         return communityEmailDTO;
     }
 
+
     @Override
     //http://localhost:8080/flood/stations?stations=%3Ca
 
 
-    public List<AddressDTO> getHomeByStationNumber(String station) {
+    public List<AddressDTO> getHomeByStationNumber(List<String> station) {
 
         //List des firestations en fonction des maisons
 

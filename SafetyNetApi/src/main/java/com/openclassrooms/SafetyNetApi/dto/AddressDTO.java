@@ -1,7 +1,10 @@
 package com.openclassrooms.SafetyNetApi.dto;
 
+
+
 import java.util.List;
 
+@org.junit.Ignore
 public class AddressDTO {
 
     private String lastName;

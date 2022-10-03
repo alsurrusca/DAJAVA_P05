@@ -34,7 +34,7 @@ public class UrlService {
         return url.getCommunityEmailList(city);
     }
 
-    public List<AddressDTO> getHomeByStation(String station) {
+    public List<AddressDTO> getHomeByStation(List<String> station) {
         return url.getHomeByStationNumber(station);
     }
 

@@ -20,7 +20,7 @@ public interface UrlRepository {
 
     CommunityEmailDTO getCommunityEmailList (String city);
 
-    List<AddressDTO> getHomeByStationNumber (String station);
+    List<AddressDTO> getHomeByStationNumber (List<String> station);
 
 
 }

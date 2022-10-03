@@ -9,11 +9,11 @@ import java.util.List;
 public interface FireStationRepository {
     List<FireStation> findAll();
 
-    FireStation addFireStation (FireStation fireStation);
+    boolean addFireStation (FireStation fireStation);
 
-    FireStation deleteFireStation (String adress, String station);
+    boolean deleteFireStation (String adress, String station);
 
-    FireStation updateFireStation (String adress, String station);
+    boolean updateFireStation (String adress, String station);
 
 
 }

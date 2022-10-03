@@ -15,7 +15,7 @@ public interface MedicalRecordRepository {
 
     boolean deleteMedicalRecords(String firstName, String lastName, String birthdate);
 
-    boolean updateMedicalRecords(List<String> medications, List<String> allergies);
+    boolean updateMedicalRecords(String firstName, String lastName, String birthdate, List<String> medications, List<String> allergies);
 
 
 }

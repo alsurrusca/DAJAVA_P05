@@ -12,13 +12,13 @@ public interface PersonRepository {
 
     List<Person> findAll();
 
-    Person deletePerson(String firstName, String lastName);
+    boolean deletePerson(String firstName, String lastName);
 
-    Person addPerson (Person person);
+    boolean addPerson (Person person);
 
-    Person update(String address, String city, String zip,String phone, String email);
+    boolean updatePerson(String address, String city, String zip, String phone, String email);
 
-    public List<Person> getPersonListByName(String firstName, String lastName);
+     List<Person> getPersonListByName(String firstName, String lastName);
 
     List<Person> getPersonByAddress (String address);
 
