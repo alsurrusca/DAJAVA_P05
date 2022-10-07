@@ -4,11 +4,21 @@ public class PersonByStationDTO {
 
     private String firstName;
     private String lastName;
-    private Iterable age;
+    private Integer age;
     private String address;
     private String phone;
     private String medication;
     private String allergies;
+
+    public PersonByStationDTO(String firstname, String lasrname, String address, String phone, String allergies) {
+        this.firstName = firstname;
+        this.lastName = lasrname;
+        this.address = address;
+        this.phone = phone;
+        this.allergies = allergies;
+    }
+
+    public  PersonByStationDTO(){}
 
     public String getFirstName() {
         return firstName;

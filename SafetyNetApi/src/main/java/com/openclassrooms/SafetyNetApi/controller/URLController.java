@@ -18,7 +18,7 @@ public class URLController {
 
     //Manque les habitants de la maison + doublon
     @GetMapping(value = "/childAlert")
-    public List<ChildAlertDTO> getChildListByInfo(@RequestParam(value = "address") String address) {
+    public List<ChildAlertDTO> getChildListByAddress(@RequestParam(value = "address") String address) {
         List<ChildAlertDTO> childAlertDTOS = urlService.getChildListByAddress(address);
         return childAlertDTOS;
     }
@@ -39,7 +39,7 @@ public class URLController {
         return phoneAlertDTO;
     }
 
-    //Erreur 500 dès que l'on met une address
+    //OK
     @GetMapping(value = "/fire")
     FirestationAdressListDTO getPersonListByStation(@RequestParam(value = "address") String address) {
         FirestationAdressListDTO firestationAdressListDTO = urlService.getPersonListByAddress(address);

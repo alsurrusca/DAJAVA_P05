@@ -4,7 +4,7 @@ package com.openclassrooms.SafetyNetApi.dto;
 
 import java.util.List;
 
-@org.junit.Ignore
+
 public class AddressDTO {
 
     private String lastName;
@@ -21,6 +21,9 @@ public class AddressDTO {
         this.allergies = allergies;
     }
 
+    public AddressDTO() {
+
+    }
 
 
     public String getLastName() {

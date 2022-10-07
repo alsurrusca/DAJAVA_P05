@@ -8,6 +8,16 @@ public class FirestationStationNumberDTO {
     private String phone;
     private Integer age;
 
+    public FirestationStationNumberDTO(String firstname, String lastname, Integer age, String address, String phone) {
+        this.firstName = firstname;
+        this.lastName = lastname;
+        this.address = address;
+        this.phone = phone;
+        this.age = age;
+    }
+
+    public FirestationStationNumberDTO() {}
+
     public String getFirstName() {
         return firstName;
     }

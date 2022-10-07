@@ -40,26 +40,25 @@ public class UrlImpl implements UrlRepository {
 
                         childList.add(childAlertDTO);
 
+
+                        //Refaire une boucle for each si l'adresse est bonne alors on ajoute dans home tous les gens de plus de 18 ans
+                        for (Person person1 : persons) {
+                            for (MedicalRecord medicalRecord1 : Data.getMedicalRecords()) {
+                                if (person1.getAddress().equals(address)) {
+                                    if (person1.getLastName().equals(medicalRecord1.getLastName()) && person1.getFirstName().equals(medicalRecord1.getFirstName())) {
+                                        if (person1.getLastName().equals(childAlertDTO.getLastName())) {
+
+                                            if (medicalRecord1.getAge() > 18) {
+
+                                                childAlertDTO.getHome().add(new ListHome(person1.getFirstName(), person1.getLastName()));
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
                     }
-
-/**
- //Refaire une boucle for each si l'adresse est bonne alors on ajoute dans home tous les gens de plus de 18 ans
- for(Person person1 : persons){
- for(MedicalRecord medicalRecord1 : Data.getMedicalRecords()){
- if(person.getAddress().equals(address)){
- if(person.getLastName().equals(medicalRecord.getLastName())){
- if(medicalRecord.getAge()>18){
- ChildAlertDTO childAlertDTO = new ChildAlertDTO();
-
- childAlertDTO.setHome(person.getFirstName(), person.getLastName());
- childList.add(childAlertDTO);
- }
- }
- }
-
- }
- }
- **/
                 }
             }
         }

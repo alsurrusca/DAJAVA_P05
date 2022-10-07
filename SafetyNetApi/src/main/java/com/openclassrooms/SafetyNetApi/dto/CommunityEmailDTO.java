@@ -7,6 +7,7 @@ public class CommunityEmailDTO {
 
     private List<String> mailAlert = new ArrayList<>();
 
+
     public List<String> getMailAlert() {
         return mailAlert;
     }

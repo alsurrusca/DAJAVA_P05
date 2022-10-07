@@ -23,6 +23,10 @@ public class PersonInfoDTO {
 
     }
 
+    public PersonInfoDTO() {
+
+    }
+
 
     public String getFirstName() {
         return firstName;

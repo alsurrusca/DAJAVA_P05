@@ -11,7 +11,7 @@ public class PhoneAlertDTO {
         return phoneAlertList;
     }
 
-    public void setPhoneAlertList(List<String> phoneAlertList) {
-        this.phoneAlertList = phoneAlertList;
-    }
+    //public void setPhoneAlertList(List<String> phoneAlertList) {
+       // this.phoneAlertList = phoneAlertList;
+   // }
 }

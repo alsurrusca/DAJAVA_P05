@@ -4,10 +4,19 @@ import com.openclassrooms.SafetyNetApi.model.Person;
 
 import java.util.List;
 
-public class ListHome extends Person {
+public class ListHome {
 
     private String firstName;
     private String lastName;
+
+    public ListHome(String firstname, String lastname) {
+        this.firstName = firstname;
+        this.lastName = lastname;
+    }
+
+    public ListHome() {
+
+    }
 
     public String getFirstName() {
         return firstName;

@@ -13,10 +13,6 @@ public class PersonListByStationDTO {
         return personByStation;
     }
 
-    public void setPersonByStation(List<PersonByStationDTO> personByStation) {
-        this.personByStation = personByStation;
-    }
-
     public int getMineur() {
         return mineur;
     }

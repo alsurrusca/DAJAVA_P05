@@ -5,12 +5,24 @@ import com.openclassrooms.SafetyNetApi.model.Person;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ChildAlertDTO {
+public class ChildAlertDTO  {
 
     private String firstName;
     private String lastName;
     private Integer age;
-    private String home;
+    private List<ListHome> home = new ArrayList<>();
+
+    public ChildAlertDTO(String firstName, String lastName, Integer age, List home){
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.age = age;
+        this.home = home;
+
+    }
+
+    public ChildAlertDTO() {
+
+    }
 
     public String getFirstName() {
         return firstName;
@@ -31,21 +43,13 @@ public class ChildAlertDTO {
     public Integer getAge() {
         return age;
     }
-
     public void setAge(Integer age) {
         this.age = age;
     }
 
-    public String getHome() {
-        return home;
-    }
+    public List<ListHome> getHome (){return home;}
 
-    public void setHome(String home) {
-        this.home = home;
-    }
-
-    public void setHome(String firstName, String lastName) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public void setHome(List<ListHome> adult) {
+       this.home = adult;
     }
 }

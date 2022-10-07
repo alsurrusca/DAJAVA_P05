@@ -20,9 +20,6 @@ public class LaunchJson {
             mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
             File file = new File("src/main/resources/data.json");
             Data data = mapper.readValue( file, Data.class);
-            System.out.println(Data.getPersons().toString());
-            System.out.println(Data.getMedicalRecords().toString());
-            System.out.println(Data.getFireStations().toString());
 
         } catch (IOException e) {
             e.printStackTrace();
