@@ -48,6 +48,8 @@ public class UrlServiceTest {
         person.setPhone("01234567");
         person.setEmail("email@email.com");
 
+        List<String>
+
         urlImpl.getChildListByAdress("address");
         assertThat(urlService.getChildListByAddress("address").size() != 0);
 
@@ -139,9 +141,9 @@ public class UrlServiceTest {
         fireStation.setAddress("address");
 
 
-        urlImpl.getPersonFromStation("1");
+        //urlImpl.getPersonFromStation("1");
 
-        assertThat(urlService.getPersonFromStationNumber("1")).isNotNull();
+        //assertThat(urlService.getPersonFromStationNumber("1")).isNotNull();
     }
 
     @Test
