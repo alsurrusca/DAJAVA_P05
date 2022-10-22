@@ -49,12 +49,9 @@ public class PersonServiceTest {
 
         //Then
 
-        List<Person> persons = new ArrayList<Person>();
-        persons.add(person);
+        personRepository.findAll();
+        assertThat(personService.getPersons().size()!= 0);
 
-        when(personRepository.findAll()).thenReturn(persons);
-
-        assertThat(personService.getPersons().size() != 0);
     }
 
     @Test

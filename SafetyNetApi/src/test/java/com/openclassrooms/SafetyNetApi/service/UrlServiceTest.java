@@ -2,9 +2,11 @@ package com.openclassrooms.SafetyNetApi.service;
 
 import com.openclassrooms.SafetyNetApi.dto.ListHome;
 import com.openclassrooms.SafetyNetApi.model.FireStation;
+import com.openclassrooms.SafetyNetApi.model.MedicalRecord;
 import com.openclassrooms.SafetyNetApi.model.Person;
 import com.openclassrooms.SafetyNetApi.repository.PersonRepositoryImpl;
 import com.openclassrooms.SafetyNetApi.repository.UrlImpl;
+import net.sf.saxon.expr.Component;
 import org.junit.Test;
 
 import org.mockito.Mock;
@@ -28,14 +30,14 @@ public class UrlServiceTest {
     @MockBean
     private UrlService urlService;
 
-    @MockBean
+
     UrlImpl urlImpl;
 
 
     @Test
     public void getChildListByAddressTest() {
 
-        Person person = new Person();
+
         urlImpl = new UrlImpl();
         urlService = new UrlService();
 
@@ -48,7 +50,11 @@ public class UrlServiceTest {
         person.setPhone("01234567");
         person.setEmail("email@email.com");
 
-        List<String>
+        List<String> medication = List.of("medication");
+        List<String>allergies = List.of("allergie");
+
+        MedicalRecord medicalRecord = new MedicalRecord("firstname","lastname","01/23/4567",medication,allergies);
+
 
         urlImpl.getChildListByAdress("address");
         assertThat(urlService.getChildListByAddress("address").size() != 0);
@@ -56,11 +62,12 @@ public class UrlServiceTest {
 
     }
 
+
     @Test
     public void getPersonInfoTest() {
         urlImpl = new UrlImpl();
         urlService = new UrlService();
-        Person person = new Person();
+
 
         person.setFirstName("firstName");
         person.setLastName("lastName");
@@ -122,29 +129,6 @@ public class UrlServiceTest {
 
     }
 
-    @Test
-    public void getPersonFromStationNumberTest() {
-
-        urlImpl = new UrlImpl();
-        urlService = new UrlService();
-
-        person.setFirstName("firstName");
-        person.setLastName("lastName");
-        person.setAddress("address");
-        person.setCity("city");
-        person.setZip("zip");
-        person.setPhone("01234567");
-        person.setEmail("email@email.com");
-
-        FireStation fireStation = new FireStation();
-        fireStation.setStation("1");
-        fireStation.setAddress("address");
-
-
-        //urlImpl.getPersonFromStation("1");
-
-        //assertThat(urlService.getPersonFromStationNumber("1")).isNotNull();
-    }
 
     @Test
     public void getCommunityEmailListTest() {
@@ -172,7 +156,6 @@ public class UrlServiceTest {
         urlImpl = new UrlImpl();
         urlService = new UrlService();
         List<ListHome> homeByStationNumber = new ArrayList<>();
-        Person person = new Person();
 
         person.setFirstName("firstName");
         person.setLastName("lastName");

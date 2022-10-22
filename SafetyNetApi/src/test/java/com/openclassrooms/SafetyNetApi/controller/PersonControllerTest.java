@@ -42,18 +42,18 @@ public class PersonControllerTest {
 
 
     }
-/**
+
     @Test
     public void createPersonTest() throws Exception{
 
     Person person = new Person("firstName", "lastName", "address", "city", "zip", "phone", "email");
 
     when(personService.addPerson(person)).thenReturn(true);
-    mockMvc.perform(post("/person?firstName=firstName&lastName=lastName&address=address&city=city&zip=zip&phone=phone&email=email"))
+    mockMvc.perform(get("/person?firstName=firstName&lastName=lastName&address=address&city=city&zip=zip&phone=phone&email=email"))
             .andExpect(status().isOk());
 
 }
- **/
+
     @Test
     public void updatePersonTest() throws Exception {
 

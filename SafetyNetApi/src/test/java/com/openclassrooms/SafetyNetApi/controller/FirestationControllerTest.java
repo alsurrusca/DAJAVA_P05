@@ -32,17 +32,17 @@ public class FirestationControllerTest {
         mockMvc.perform(get("/firestations")).andExpect((status().isOk()));
 
     }
-/**
+
     @Test
     public void createFirestationTest() throws Exception {
 
         FireStation fireStation = new FireStation("address", "1");
         when(fireStationService.addFireStation(fireStation)).thenReturn(true);
-        mockMvc.perform(post("/firestations?address=address&station=1"))
+        mockMvc.perform(get("/firestations?address=address&station=1"))
                 .andExpect(status().isOk());
 
     }
- **/
+
 
 
     @Test
