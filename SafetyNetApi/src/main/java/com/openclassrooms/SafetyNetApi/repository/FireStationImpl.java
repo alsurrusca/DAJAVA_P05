@@ -50,7 +50,7 @@ public class FireStationImpl implements FireStationRepository {
         return false;
     }
 
-    public List<FireStation> getFireStationsByNumber(String station) {
+    public List<FireStation> getFireStationByNumber(String station) {
         List<FireStation> fireStationsList = new ArrayList<>();
 
         for(FireStation fireStation : Data.getFireStations()){
@@ -65,9 +65,11 @@ public class FireStationImpl implements FireStationRepository {
     public List<FireStation> getFireStationsByNumber(List<String> station) {
         List<FireStation> fireStationsList = new ArrayList<>();
 
-        for(FireStation fireStation : Data.getFireStations()){
-            if(fireStation.getStation().equals(station)){
-                fireStationsList.add(fireStation);
+        for(FireStation fireStation : Data.getFireStations()) {
+            for (String stationId : station) {
+                if (fireStation.getStation().equals(stationId)) {
+                    fireStationsList.add(fireStation);
+                }
             }
         }
 

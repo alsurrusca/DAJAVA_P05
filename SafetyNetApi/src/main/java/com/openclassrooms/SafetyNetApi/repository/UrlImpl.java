@@ -36,7 +36,6 @@ public class UrlImpl implements UrlRepository {
                         childAlertDTO.setFirstName(medicalRecord.getFirstName());
                         childAlertDTO.setLastName(medicalRecord.getLastName());
                         childAlertDTO.setAge(medicalRecord.getAge());
-                        //childAlertDTO.getHome().add(person);
 
                         childList.add(childAlertDTO);
 
@@ -103,7 +102,7 @@ public class UrlImpl implements UrlRepository {
         PhoneAlertDTO phoneAlertDTO = new PhoneAlertDTO();
         FireStationImpl fireStationImpl = new FireStationImpl();
 
-        fireStations = fireStationImpl.getFireStationsByNumber(station);
+        fireStations = fireStationImpl.getFireStationByNumber(station);
 
         //On récupère les stations, les infos des personnes et si l'adresse = à l'adresse, on ajoute le numéro à phoneAlert
         for (FireStation fireStation : fireStations) {
@@ -159,13 +158,12 @@ public class UrlImpl implements UrlRepository {
         List<FireStation> fireStations = new ArrayList<>();
         FireStationImpl fireStationImpl = new FireStationImpl();
 
-        fireStations = fireStationImpl.getFireStationsByNumber(station);
+        fireStations = fireStationImpl.getFireStationByNumber(station);
 
         for (FireStation fireStation : fireStations) {
             for (Person person : Data.getPersons()) {
                 if (fireStation.getAddress().equals(person.getAddress())) {
                     PersonByStationDTO personByStationDTO = new PersonByStationDTO();
-
 
                     //On ajoute les noms adresse et phone
                     personByStationDTO.setFirstName(person.getFirstName());
@@ -178,6 +176,7 @@ public class UrlImpl implements UrlRepository {
 
                     //On crée une liste de personne mineur et majeur
                     for (MedicalRecord medicalRecord : Data.getMedicalRecords()) {
+
                         if (medicalRecord.getFirstName().equals(personByStationDTO.getFirstName())) {
                             if (medicalRecord.getAge() > 18) {
                                 personListByStationDTOS.setMajeur(personListByStationDTOS.getMajeur() + 1);
@@ -189,6 +188,7 @@ public class UrlImpl implements UrlRepository {
                 }
             }
         }
+
         return personListByStationDTOS;
     }
 
@@ -217,30 +217,30 @@ public class UrlImpl implements UrlRepository {
 
         //List des firestations en fonction des maisons
 
-        List<FirestationStationNumberDTO> firestationStationNumberDTOS = new ArrayList<>();
         List<AddressDTO> addressDTOS = new ArrayList<>();
         List<FireStation> fireStations = new ArrayList<>();
         FireStationImpl fireStationImpl = new FireStationImpl();
         PersonRepositoryImpl personRepository = new PersonRepositoryImpl();
-        List<MedicalRecord> medicalRecords = new ArrayList<>();
-        MedicalRecordImpl medicalRecordImpl = new MedicalRecordImpl();
         List<Person> personList = new ArrayList<>();
 
         fireStations = fireStationImpl.getFireStationsByNumber(station);
 
         for (FireStation fireStation : fireStations) {
+
             List<Person> personList1 = personRepository.getPersonByAddress(fireStation.getAddress());
             personList.addAll(personList1);
+
         }
+        MedicalRecordImpl medicalRecordImpl = new MedicalRecordImpl();
+        List<MedicalRecord> medicalRecords = new ArrayList<>();
 
         for (Person person : personList) {
             MedicalRecord medicalRecord = medicalRecordImpl.getByFirstName(person.getFirstName());
             medicalRecords.add(medicalRecord);
-
             addressDTOS.add(new AddressDTO(person.getLastName(), person.getPhone(), medicalRecord.getAge(), medicalRecord.getMedications(), medicalRecord.getAllergies()));
         }
 
-
+            
         return addressDTOS;
     }
 }

@@ -1,7 +1,5 @@
 package com.openclassrooms.SafetyNetApi.dto;
 
-
-
 import java.util.List;
 
 
@@ -13,7 +11,7 @@ public class AddressDTO {
     private List<String> medications;
     private List<String> allergies;
 
-    public AddressDTO(String lastName, String phone, int age, List<String> medications, List<String> allergies) {
+    public AddressDTO(String lastName, String phone, Integer age, List<String> medications, List<String> allergies) {
         this.lastName = lastName;
         this.phone = phone;
         this.age = age;
@@ -24,6 +22,7 @@ public class AddressDTO {
     public AddressDTO() {
 
     }
+
 
 
     public String getLastName() {
