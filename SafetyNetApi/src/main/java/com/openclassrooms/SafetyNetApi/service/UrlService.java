@@ -1,13 +1,12 @@
 package com.openclassrooms.SafetyNetApi.service;
 
 import com.openclassrooms.SafetyNetApi.dto.*;
-import com.openclassrooms.SafetyNetApi.repository.UrlImpl;
 
 import java.util.List;
 
 public class UrlService {
 
-    UrlImpl url = new UrlImpl();
+    UrlServiceImpl url = new UrlServiceImpl();
 
     public List<ChildAlertDTO> getChildListByAddress(String address) {
         return url.getChildListByAdress(address);
