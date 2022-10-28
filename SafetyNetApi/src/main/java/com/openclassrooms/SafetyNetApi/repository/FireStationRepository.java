@@ -7,6 +7,7 @@ import java.util.List;
 
 @Repository
 public interface FireStationRepository {
+
     List<FireStation> findAll();
 
     boolean addFireStation (FireStation fireStation);
