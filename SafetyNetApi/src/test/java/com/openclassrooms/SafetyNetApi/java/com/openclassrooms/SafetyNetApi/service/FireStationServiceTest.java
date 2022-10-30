@@ -2,19 +2,14 @@ package com.openclassrooms.SafetyNetApi.service;
 
 import com.openclassrooms.SafetyNetApi.data.Data;
 import com.openclassrooms.SafetyNetApi.model.FireStation;
-import com.openclassrooms.SafetyNetApi.repository.FireStationImpl;
 
 import com.openclassrooms.SafetyNetApi.repository.FireStationRepository;
 import org.junit.Test;
 
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -30,7 +25,7 @@ public class FireStationServiceTest {
     private FireStationService fireStationService;
 
     @MockBean
-    private FireStationImpl fireStationImpl;
+    private FireStationRepository fireStationImpl;
 
     @MockBean
     private FireStation fireStation;
@@ -40,7 +35,7 @@ public class FireStationServiceTest {
     public void getFirestationTest() {
 
         fireStation = new FireStation();
-        fireStationImpl = new FireStationImpl();
+        fireStationImpl = new FireStationRepository();
         fireStationService = new FireStationService();
 
         fireStation.setAddress("address");
@@ -55,7 +50,7 @@ public class FireStationServiceTest {
     @Test
     public void updateFirestationTest(){
 
-        fireStationImpl = new FireStationImpl();
+        fireStationImpl = new FireStationRepository();
         fireStationService = new FireStationService();
         fireStation = new FireStation();
 
@@ -70,7 +65,7 @@ public class FireStationServiceTest {
     @Test
     public void deleteFirestationTest(){
 
-        fireStationImpl = new FireStationImpl();
+        fireStationImpl = new FireStationRepository();
         fireStationService = new FireStationService();
 
 
@@ -90,7 +85,7 @@ public class FireStationServiceTest {
     @Test
     public void addFirestationTest(){
 
-        fireStationImpl = new FireStationImpl();
+        fireStationImpl = new FireStationRepository();
         fireStationService = new FireStationService();
         fireStation = new FireStation();
 

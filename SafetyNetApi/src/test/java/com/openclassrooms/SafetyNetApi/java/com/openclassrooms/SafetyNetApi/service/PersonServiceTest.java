@@ -3,20 +3,15 @@ package com.openclassrooms.SafetyNetApi.service;
 import com.openclassrooms.SafetyNetApi.data.Data;
 import com.openclassrooms.SafetyNetApi.model.Person;
 
-import com.openclassrooms.SafetyNetApi.repository.PersonRepositoryImpl;
+import com.openclassrooms.SafetyNetApi.repository.PersonRepository;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.when;
 
 
 @WebMvcTest(PersonService.class)
@@ -30,7 +25,7 @@ public class PersonServiceTest {
     private Person person;
 
     @MockBean
-    private PersonRepositoryImpl personRepository;
+    private PersonRepository personRepository;
 
 
     @Test
@@ -58,7 +53,7 @@ public class PersonServiceTest {
     public void updatePersonTest() {
 
         personService = new PersonService();
-        personRepository = new PersonRepositoryImpl();
+        personRepository = new PersonRepository();
 
         //When
         person = new Person("firstname", "lastname", "address", "city", "zip", "12345678", "email@email.com");
@@ -76,7 +71,7 @@ public class PersonServiceTest {
     @Test
     public void deletePersonTest() {
 
-        personRepository = new PersonRepositoryImpl();
+        personRepository = new PersonRepository();
 
         person = new Person("firstName","lastName","address","city","zip","phone","email@email.com");
         //When
@@ -96,7 +91,7 @@ public class PersonServiceTest {
 
         //Mockito.when(Data.getPersons()).thenReturn(persons);
 
-        personRepository.deletePerson("firstName", "lastName");
+        personService.deletePerson("firstName", "lastName");
 
         assertThat(personService.deletePerson("fistName", "lastName")).doesNotHaveToString("firstName");
 
@@ -108,7 +103,7 @@ public class PersonServiceTest {
 
         personService = new PersonService();
         person = new Person();
-        personRepository = new PersonRepositoryImpl();
+        personRepository = new PersonRepository();
 
         person.setFirstName("firstName");
         person.setLastName("lastName");

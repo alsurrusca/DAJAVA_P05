@@ -2,7 +2,7 @@ package com.openclassrooms.SafetyNetApi.service;
 
 import com.openclassrooms.SafetyNetApi.data.Data;
 import com.openclassrooms.SafetyNetApi.model.MedicalRecord;
-import com.openclassrooms.SafetyNetApi.repository.MedicalRecordImpl;
+import com.openclassrooms.SafetyNetApi.repository.MedicalRecordRepository;
 import org.junit.Test;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +27,7 @@ public class MedicalRecordServiceTest {
     private MedicalRecordService medicalRecordService;
 
     @MockBean
-    private MedicalRecordImpl medicalRecordImpl;
+    private MedicalRecordRepository medicalRecordRepository;
 
     @MockBean
     private MedicalRecord medicalRecord;
@@ -38,13 +38,13 @@ public class MedicalRecordServiceTest {
 
         medicalRecordService = new MedicalRecordService();
 
-        medicalRecordImpl = new MedicalRecordImpl();
+        medicalRecordRepository = new MedicalRecordRepository();
         //Then
 
         List<String> medication = List.of("aznol:350mg");
         List<String> allergies = List.of("nillacilan");
         medicalRecord = new MedicalRecord("FistName", "LastName", "01/01/2001", medication, allergies);
-       medicalRecordImpl.findAll();
+       medicalRecordRepository.findAll();
 
 
         assertThat(medicalRecordService.getMedicalRecord().size() != 0);
@@ -54,7 +54,7 @@ public class MedicalRecordServiceTest {
     public void updateMedicalRecordTest() {
 
         medicalRecordService = new MedicalRecordService();
-        medicalRecordImpl = new MedicalRecordImpl();
+        medicalRecordRepository = new MedicalRecordRepository();
 
 
         List<String> medication = List.of("aznol:350mg");
@@ -77,7 +77,7 @@ public class MedicalRecordServiceTest {
     @Test
     public void addMedicalRecordTest() {
 
-       medicalRecordImpl = new MedicalRecordImpl();
+       medicalRecordRepository = new MedicalRecordRepository();
        medicalRecordService = new MedicalRecordService();
        medicalRecord = new MedicalRecord();
 
@@ -101,7 +101,7 @@ public class MedicalRecordServiceTest {
     @Test
     public void deleteMedicalRecordTest() {
 
-        medicalRecordImpl = new MedicalRecordImpl();
+        medicalRecordRepository = new MedicalRecordRepository();
         medicalRecordService = new MedicalRecordService();
 
 
@@ -112,7 +112,7 @@ public class MedicalRecordServiceTest {
         medicalRecord = new MedicalRecord("firstName", "lastName", "01/23/4567", medication, allergies);
         Data.getMedicalRecords().add(medicalRecord);
 
-        medicalRecordImpl.deleteMedicalRecords("firstName", "lastName", "01/23/4567");
+        medicalRecordRepository.deleteMedicalRecords("firstName", "lastName", "01/23/4567");
 
         assertThat(medicalRecordService.deleteMedicalRecords("01/23/4567", "firstName", "lastName")).doesNotHaveToString("01/23/4567");
 

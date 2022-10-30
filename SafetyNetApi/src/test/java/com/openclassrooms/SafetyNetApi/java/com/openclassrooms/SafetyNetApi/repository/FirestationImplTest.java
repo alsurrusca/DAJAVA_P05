@@ -2,7 +2,6 @@ package com.openclassrooms.SafetyNetApi.repository;
 
 import com.openclassrooms.SafetyNetApi.data.Data;
 import com.openclassrooms.SafetyNetApi.model.FireStation;
-import net.sf.saxon.trans.SymbolicName;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -13,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class FirestationImplTest {
 
-    private FireStationImpl fireStationImpl;
+    private FireStationRepository fireStationImpl;
 
     @Test
     public void getFirestationImplTest(){
@@ -41,7 +40,7 @@ public class FirestationImplTest {
     public void saveFirestationTest(){
 
         FireStation firestation = new FireStation();
-        fireStationImpl = new FireStationImpl();
+        fireStationImpl = new FireStationRepository();
 
         firestation.setStation("1");
         firestation.setAddress("address");
@@ -55,7 +54,7 @@ public class FirestationImplTest {
     public void deleteFirestationTest() {
 
         FireStation fireStation = new FireStation();
-        fireStationImpl = new FireStationImpl();
+        fireStationImpl = new FireStationRepository();
 
         fireStation.setAddress("address");
         fireStation.setStation("1");
@@ -68,7 +67,7 @@ public class FirestationImplTest {
     public void findAllTest() {
 
         FireStation fireStation = new FireStation();
-        fireStationImpl = new FireStationImpl();
+        fireStationImpl = new FireStationRepository();
 
         fireStation.setStation("1");
         fireStation.setAddress("addresse");

@@ -4,14 +4,8 @@ import com.openclassrooms.SafetyNetApi.dto.ListHome;
 import com.openclassrooms.SafetyNetApi.model.FireStation;
 import com.openclassrooms.SafetyNetApi.model.MedicalRecord;
 import com.openclassrooms.SafetyNetApi.model.Person;
-import com.openclassrooms.SafetyNetApi.repository.PersonRepositoryImpl;
-import com.openclassrooms.SafetyNetApi.repository.UrlImpl;
-import net.sf.saxon.expr.Component;
 import org.junit.Test;
 
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -31,14 +25,14 @@ public class UrlServiceTest {
     private UrlService urlService;
 
 
-    UrlImpl urlImpl;
+    UrlService urlImpl;
 
 
     @Test
     public void getChildListByAddressTest() {
 
 
-        urlImpl = new UrlImpl();
+        urlImpl = new UrlService();
         urlService = new UrlService();
 
         //On créer une nouvelle personne
@@ -57,7 +51,7 @@ public class UrlServiceTest {
 
 
         urlImpl.getChildListByAdress("address");
-        assertThat(urlService.getChildListByAddress("address").size() != 0);
+        assertThat(urlService.getChildListByAdress("address").size() != 0);
 
 
     }
@@ -65,7 +59,7 @@ public class UrlServiceTest {
 
     @Test
     public void getPersonInfoTest() {
-        urlImpl = new UrlImpl();
+        urlImpl = new UrlService();
         urlService = new UrlService();
 
 
@@ -80,7 +74,7 @@ public class UrlServiceTest {
         List<Person> listOfPerson = new ArrayList<Person>();
         listOfPerson.add(person);
 
-        assertThat(urlService.getPersonInfo("firstName", "lastName").size() != 0);
+        assertThat(urlService.getPersonListInfo("firstName", "lastName").size() != 0);
 
 
     }
@@ -88,7 +82,7 @@ public class UrlServiceTest {
     @Test
     public void getPhoneNumberFromStationTest() {
 
-        urlImpl = new UrlImpl();
+        urlImpl = new UrlService();
         urlService = new UrlService();
 
         person.setFirstName("firstName");
@@ -105,14 +99,14 @@ public class UrlServiceTest {
 
         urlImpl.getPhoneNumberListByStation("1");
 
-        assertThat(urlService.getPhoneNumberFromeStation("1")).isNotNull();
+        assertThat(urlService.getPhoneNumberListByStation("1")).isNotNull();
 
     }
 
     @Test
     public void getPersonListByAddressTest() {
 
-        urlImpl = new UrlImpl();
+        urlImpl = new UrlService();
         urlService = new UrlService();
 
         person.setFirstName("firstName");
@@ -133,7 +127,7 @@ public class UrlServiceTest {
     @Test
     public void getCommunityEmailListTest() {
 
-        urlImpl = new UrlImpl();
+        urlImpl = new UrlService();
         urlService = new UrlService();
 
         person.setFirstName("firstName");
@@ -146,14 +140,14 @@ public class UrlServiceTest {
 
         urlImpl.getCommunityEmailList("city");
 
-        assertThat(urlService.getListFromMail("city")).isNotNull();
+        assertThat(urlService.getCommunityEmailList("city")).isNotNull();
 
     }
 
     @Test
     public void getHomeByStationTest() {
 
-        urlImpl = new UrlImpl();
+        urlImpl = new UrlService();
         urlService = new UrlService();
         List<ListHome> homeByStationNumber = new ArrayList<>();
 
@@ -179,7 +173,7 @@ public class UrlServiceTest {
 
         urlImpl.getHomeByStationNumber(fireStationStationNumber);
 
-        assertThat(urlService.getHomeByStation(fireStationStationNumber)).isNotNull();
+        assertThat(urlService.getHomeByStationNumber(fireStationStationNumber)).isNotNull();
 
     }
 
