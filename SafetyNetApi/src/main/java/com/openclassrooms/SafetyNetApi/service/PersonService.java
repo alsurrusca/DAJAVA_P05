@@ -1,7 +1,9 @@
 package com.openclassrooms.SafetyNetApi.service;
 
 
+import com.openclassrooms.SafetyNetApi.data.Data;
 import com.openclassrooms.SafetyNetApi.model.Person;
+import com.openclassrooms.SafetyNetApi.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
@@ -13,10 +15,10 @@ import java.util.List;
 public class PersonService {
 
     @Autowired
-    private PersonServiceImpl personService = new PersonServiceImpl();
+    private PersonRepository personRepository = new PersonRepository();
 
     public List<Person> getPersons() {
-        return personService.findAll();
+        return personRepository.findAll();
     }
 
 
@@ -26,15 +28,15 @@ public class PersonService {
             String zip,
             String phone,
             String email) {
-        return personService.updatePerson(address, city, zip, phone, email);
+        return personRepository.updatePerson(address, city, zip, phone, email);
     }
 
     public boolean deletePerson(String firstName, String lastName) {
-        return personService.deletePerson(firstName, lastName);
+       return personRepository.deletePerson(firstName,lastName);
     }
 
     public boolean addPerson (Person person) {
-        return personService.addPerson(person);
+        return personRepository.addPerson(person);
     }
 
 
